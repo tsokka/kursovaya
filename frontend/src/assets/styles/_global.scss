@@ -60,3 +60,59 @@ a.button {
     color: $dark-text-color;
   }
 }
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+
+  input {
+    display: none;
+
+    &:checked + label::before {
+      border-color: $blue;
+    }
+
+    &:checked + label::after {
+      opacity: 1;
+    }
+  }
+
+  label {
+    position: relative;
+    padding-left: 24px;
+    font-size: 14px;
+    line-height: 130%;
+    color: $dark-text-color;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 14px;
+      height: 14px;
+      box-sizing: border-box;
+      border: 1px solid $dark-text-color;
+      border-radius: 2px;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 5px;
+      width: 6px;
+      height: 10px;
+      box-sizing: border-box;
+      border: solid $blue;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  a {
+    color: $blue;
+  }
+}

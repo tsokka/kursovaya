@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="auth">
+    <div class="auth-form">
+      <h1 class="auth-title">Войти в личный кабинет</h1>
+      <form [formGroup]="loginForm" class="auth-fields">
+        <div class="auth-field">
+          <input type="text" class="input" formControlName="email" placeholder="Электронная почта">
+          <div class="auth-error"
+               *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            Введите корректный email
+          </div>
+        </div>
+        <div class="auth-field">
+          <input type="password" class="input" formControlName="password" placeholder="Пароль">
+          <div class="auth-error"
+               *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Введите пароль
+          </div>
+        </div>
+        <div class="auth-checkbox checkbox">
+          <input type="checkbox" id="rememberMe" formControlName="rememberMe">
+          <label for="rememberMe">Запомнить меня</label>
+        </div>
+        <button type="button" class="button auth-button"
+                [disabled]="!loginForm.valid"
+                (click)="login()">Войти
+        </button>
+      </form>
+      <div class="auth-bottom">
+        Нет аккаунта? <a routerLink="/signup">Пройдите регистрацию</a>
+      </div>
+    </div>
+    <div class="auth-image">
+      <img src="/assets/images/page/login.png" alt="Вход">
+    </div>
+  </div>
+</div>

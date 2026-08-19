@@ -13,6 +13,8 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/materia
 import {MatMenuModule} from "@angular/material/menu";
 import {CarouselModule} from "ngx-owl-carousel-o";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { LoginComponent } from './views/user/login/login.component';
+import { SignupComponent } from './views/user/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
-    MainComponent
+    MainComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

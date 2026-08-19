@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="auth">
+    <div class="auth-form">
+      <h1 class="auth-title">Регистрация на сайте</h1>
+      <form [formGroup]="signupForm" class="auth-fields">
+        <div class="auth-field">
+          <input type="text" class="input" formControlName="name" placeholder="Ваше имя">
+          <div class="auth-error"
+               *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
+            Имя должно состоять из русских букв и начинаться с заглавной
+          </div>
+        </div>
+        <div class="auth-field">
+          <input type="text" class="input" formControlName="email" placeholder="Электронная почта">
+          <div class="auth-error"
+               *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+            Введите корректный email
+          </div>
+        </div>
+        <div class="auth-field">
+          <input type="password" class="input" formControlName="password" placeholder="Пароль">
+          <div class="auth-error"
+               *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+            Не менее 8 символов, минимум одна заглавная буква и одна цифра
+          </div>
+        </div>
+        <div class="auth-checkbox checkbox">
+          <input type="checkbox" id="agree" formControlName="agree">
+          <label for="agree">
+            Я принимаю <a routerLink="/policy" fragment="agreement" target="_blank">условия пользовательского
+            соглашения</a> и даю <a routerLink="/policy" fragment="personal" target="_blank">согласие на обработку
+            персональных данных</a>.
+          </label>
+        </div>
+        <button type="button" class="button auth-button"
+                [disabled]="!signupForm.valid"
+                (click)="signup()">Зарегистрироваться
+        </button>
+      </form>
+      <div class="auth-bottom">
+        Уже есть аккаунт? <a routerLink="/login">Войдите</a>
+      </div>
+    </div>
+    <div class="auth-image">
+      <img src="/assets/images/page/signup.png" alt="Регистрация">
+    </div>
+  </div>
+</div>
