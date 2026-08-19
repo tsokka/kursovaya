@@ -4,6 +4,7 @@ import {LayoutComponent} from "./shared/layout/layout.component";
 import {MainComponent} from "./views/main/main.component";
 import {LoginComponent} from "./views/user/login/login.component";
 import {SignupComponent} from "./views/user/signup/signup.component";
+import {PolicyComponent} from "./views/policy/policy.component";
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
     children: [
       {path: '', component: MainComponent},
       {path: 'login', component: LoginComponent},
-      {path: 'signup', component: SignupComponent}
+      {path: 'signup', component: SignupComponent},
+      {path: 'policy', component: PolicyComponent}
     ]
   }
 ];

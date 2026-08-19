@@ -15,6 +15,7 @@ import {CarouselModule} from "ngx-owl-carousel-o";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LoginComponent } from './views/user/login/login.component';
 import { SignupComponent } from './views/user/signup/signup.component';
+import { PolicyComponent } from './views/policy/policy.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SignupComponent } from './views/user/signup/signup.component';
     FooterComponent,
     MainComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    PolicyComponent
   ],
   imports: [
     BrowserModule,

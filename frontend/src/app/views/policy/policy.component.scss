@@ -1,0 +1,49 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/mixins";
+
+.policy {
+  padding: 60px 0 100px 0;
+  max-width: 900px;
+
+  .policy-title {
+    @include head-lora-36;
+    margin: 0 0 40px 0;
+  }
+
+  .policy-section {
+    margin-bottom: 50px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .policy-head {
+      @include head-lora-36;
+      font-size: 28px;
+      margin: 0 0 25px 0;
+    }
+
+    .policy-subhead {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      color: $blue;
+      margin: 35px 0 15px 0;
+    }
+
+    .policy-subhead-small {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      color: $dark-text-color;
+      margin: 25px 0 15px 0;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 150%;
+      color: $dark-text-color;
+      margin: 0 0 12px 0;
+    }
+  }
+}
