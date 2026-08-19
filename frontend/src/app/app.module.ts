@@ -13,9 +13,11 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/materia
 import {MatMenuModule} from "@angular/material/menu";
 import {CarouselModule} from "ngx-owl-carousel-o";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { LoginComponent } from './views/user/login/login.component';
-import { SignupComponent } from './views/user/signup/signup.component';
-import { PolicyComponent } from './views/policy/policy.component';
+import {LoginComponent} from './views/user/login/login.component';
+import {SignupComponent} from './views/user/signup/signup.component';
+import {PolicyComponent} from './views/policy/policy.component';
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "./core/auth/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { PolicyComponent } from './views/policy/policy.component';
     CarouselModule
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

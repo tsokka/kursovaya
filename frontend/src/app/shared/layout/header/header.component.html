@@ -13,9 +13,16 @@
       </ul>
     </nav>
     <a href="tel:+74993431334" class="header-phone">+7 (499) 343-13-34</a>
-    <a routerLink="/login" class="header-login">
+    <a routerLink="/login" class="header-login" *ngIf="!isLogged">
       <img src="/assets/images/icons/user.svg" alt="Личный кабинет">
       <span>Войти</span>
     </a>
+    <a class="header-login" *ngIf="isLogged" [matMenuTriggerFor]="userMenu">
+      <img src="/assets/images/icons/user.svg" alt="Личный кабинет">
+      <span>Привет, {{ userName }}!</span>
+    </a>
+    <mat-menu #userMenu="matMenu" class="user-menu" xPosition="before">
+      <button mat-menu-item (click)="logout()">Выйти</button>
+    </mat-menu>
   </div>
 </header>
