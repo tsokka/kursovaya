@@ -1,0 +1,84 @@
+@import "../../../../assets/styles/variables";
+
+header.header {
+  padding: 40px 0;
+
+  .container {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    display: block;
+    margin-right: 100px;
+
+    img {
+      display: block;
+      height: 47px;
+    }
+  }
+
+  .header-menu {
+    margin-right: auto;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+
+      li {
+        list-style: none;
+        margin-right: 30px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        a {
+          font-family: "Montserrat", sans-serif;
+          font-weight: 500;
+          font-size: 16px;
+          color: $dark-text-color;
+          text-decoration: none;
+          cursor: pointer;
+
+          &:hover,
+          &.active {
+            color: $blue;
+          }
+        }
+      }
+    }
+  }
+
+  .header-phone {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: $blue;
+    text-decoration: none;
+    margin-right: 141px;
+  }
+
+  .header-login {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+
+    img {
+      display: block;
+      width: 24px;
+      height: 24px;
+      margin-right: 7px;
+    }
+
+    span {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      color: $dark-text-color;
+    }
+  }
+}
