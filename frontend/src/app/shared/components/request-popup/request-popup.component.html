@@ -1,0 +1,38 @@
+<div class="popup">
+  <div class="popup-close" (click)="closePopup()">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 1L19 19M19 1L1 19" stroke="#B5B5B5" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <div class="popup-content" *ngIf="!isSuccess">
+    <div class="popup-title">
+      {{ data.type === 'order' ? 'Заявка на услугу' : 'Закажите бесплатную консультацию!' }}
+    </div>
+    <form [formGroup]="requestForm" class="popup-fields">
+      <div class="popup-field" *ngIf="data.type === 'order'">
+        <input type="text" class="input popup-service" formControlName="service" readonly>
+      </div>
+      <div class="popup-field">
+        <input type="text" class="input" formControlName="name" placeholder="Ваше имя">
+      </div>
+      <div class="popup-field">
+        <input type="text" class="input" formControlName="phone" placeholder="Ваш номер телефона">
+      </div>
+      <button type="button" class="button popup-button"
+              [disabled]="!requestForm.valid"
+              (click)="createRequest()">
+        {{ data.type === 'order' ? 'Оставить заявку' : 'Заказать консультацию' }}
+      </button>
+      <div class="popup-error" *ngIf="hasError">
+        Ошибка при отправке формы. Попробуйте еще раз
+      </div>
+    </form>
+  </div>
+
+  <div class="popup-content popup-success" *ngIf="isSuccess">
+    <div class="popup-title">Спасибо за вашу заявку!</div>
+    <div class="popup-success-text">Мы свяжемся с вами при первой же возможности.</div>
+    <button type="button" class="button popup-success-button" (click)="closePopup()">Окей</button>
+  </div>
+</div>

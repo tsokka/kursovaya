@@ -142,3 +142,20 @@ a.button {
     }
   }
 }
+
+.request-popup-panel {
+  width: 730px;
+  max-width: 100%;
+
+  .mat-dialog-container {
+    padding: 0;
+    border-radius: 5px;
+    border: 1px solid $blue;
+    box-shadow: none;
+    overflow: hidden;
+  }
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(7, 23, 57, 0.4);
+}

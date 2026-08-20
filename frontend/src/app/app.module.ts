@@ -18,6 +18,8 @@ import {SignupComponent} from './views/user/signup/signup.component';
 import {PolicyComponent} from './views/policy/policy.component';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "./core/auth/auth.interceptor";
+import {RequestPopupComponent} from './shared/components/request-popup/request-popup.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import {AuthInterceptor} from "./core/auth/auth.interceptor";
     MainComponent,
     LoginComponent,
     SignupComponent,
-    PolicyComponent
+    PolicyComponent,
+    RequestPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import {AuthInterceptor} from "./core/auth/auth.interceptor";
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CarouselModule
+    CarouselModule,
+    MatDialogModule
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
