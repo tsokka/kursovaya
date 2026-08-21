@@ -1,0 +1,300 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/mixins";
+
+.offers {
+  padding-bottom: 120px;
+
+  .offers-slider {
+    position: relative;
+
+    .offers-arrow {
+      position: absolute;
+      top: 50%;
+      margin-top: -14px;
+      z-index: 3;
+      cursor: pointer;
+      line-height: 0;
+
+      &.offers-arrow-prev {
+        left: 10px;
+      }
+
+      &.offers-arrow-next {
+        right: 10px;
+      }
+    }
+  }
+
+  ::ng-deep .owl-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+
+    .owl-dot {
+      margin: 0 10px;
+
+      span {
+        display: block;
+        width: 10px;
+        height: 10px;
+        margin: 0;
+        box-sizing: border-box;
+        border-radius: 50%;
+        border: 1px solid #FFFFFF;
+        background: transparent;
+      }
+
+      &.active span {
+        background: #FFFFFF;
+      }
+    }
+  }
+
+  .offer {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+
+    .offer-content {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 59%;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 80px;
+      box-sizing: border-box;
+      background: transparent;
+
+      .offer-label {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 40%;
+        text-transform: uppercase;
+        color: $blue;
+      }
+
+      .offer-title {
+        font-family: "Lora", serif;
+        font-size: 50px;
+        line-height: 130%;
+        color: #FFFFFF;
+        margin-bottom: 20px;
+
+        span {
+          color: $blue;
+        }
+      }
+
+      .offer-text {
+        font-size: 24px;
+        line-height: 130%;
+        color: #FFFFFF;
+        margin-bottom: 50px;
+        width: 456px;
+      }
+
+      .offer-button {
+        align-self: flex-start;
+        padding: 15px 33px;
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
+
+    .offer-image {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 60%;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &.offer-no-text .offer-content .offer-title {
+      margin-bottom: 40px;
+    }
+
+    .offer-ellipse {
+      position: absolute;
+      z-index: 1;
+      left: -699px;
+      width: 1405px;
+      height: 1404px;
+      top: -702px;
+      border-radius: 50%;
+      background: $light-blue;
+    }
+  }
+}
+
+.services {
+  padding-bottom: 120px;
+
+  .services-title {
+    @include head-lora-36;
+    margin: 0 0 40px 0;
+    font-size: 38px;
+  }
+
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 27px;
+  }
+
+  .service {
+    display: flex;
+    flex-direction: column;
+
+    .service-image {
+      margin-bottom: 15px;
+
+      img {
+        display: block;
+        width: 291px;
+        height: 291px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+    }
+
+    .service-name {
+      font-size: 20px;
+      color: $blue;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .service-text {
+      font-size: 14px;
+      line-height: 130%;
+      color: $dark-text-color;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
+    .service-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .service-price {
+        font-size: 20px;
+        font-weight: 600;
+        color: $blue;
+      }
+
+      .service-button {
+        padding: 16px 33px;
+        font-size: 16px;
+        font-weight: 400;
+        width: 163px;
+      }
+    }
+  }
+}
+
+.about {
+  padding-bottom: 120px;
+
+  .about-inner {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .about-image {
+    flex-shrink: 0;
+    margin-right: 68px;
+
+    img {
+      display: block;
+      width: 460px;
+      border-radius: 5px;
+    }
+  }
+
+  .about-content {
+    .about-title {
+      @include head-lora-36;
+      font-size: 38px;
+      margin: 0 0 20px 0;
+    }
+
+    .about-text {
+      font-size: 14px;
+      line-height: 130%;
+      color: $text-color;
+      margin: 0 0 40px 0;
+      width: 633px;
+
+      .about-accent {
+        font-weight: 500;
+      }
+    }
+
+    .about-subtitle {
+      @include head-lora-36;
+      font-size: 26px;
+      margin: 0 0 20px 0;
+    }
+
+    .about-advantages {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px 71px;
+
+      .advantage {
+        display: flex;
+        align-items: flex-start;
+        width: 310px;
+
+        .advantage-number {
+          position: relative;
+          flex-shrink: 0;
+          width: 40px;
+          height: 40px;
+          margin-right: 20px;
+          border-radius: 50%;
+          background: $light-blue;
+
+          span {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -20px;
+            text-align: center;
+            font-family: "Lora", serif;
+            font-weight: 500;
+            font-size: 50px;
+            line-height: 65px;
+            color: $blue;
+          }
+        }
+
+        .advantage-content {
+          font-size: 14px;
+          line-height: 130%;
+          color: $text-color;
+
+          .advantage-accent {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}

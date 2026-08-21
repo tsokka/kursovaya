@@ -1,1 +1,82 @@
-<div class="container">Главная страница</div>
+<section class="offers">
+  <div class="container">
+    <div class="offers-slider">
+      <owl-carousel-o [options]="offersOptions" #offersCarousel>
+        <ng-template carouselSlide *ngFor="let offer of offers">
+          <div class="offer" [class.offer-no-text]="!offer.text">
+            <div class="offer-image">
+              <img [src]="offer.image" alt="">
+            </div>
+            <div class="offer-ellipse"></div>
+            <div class="offer-content">
+              <div class="offer-label">{{ offer.label }}</div>
+              <div class="offer-title">
+                {{ offer.titleStart }}<span>{{ offer.titleAccent }}</span>{{ offer.titleEnd }}
+              </div>
+              <div class="offer-text" *ngIf="offer.text">{{ offer.text }}</div>
+              <button class="button offer-button" (click)="openOrderPopup(offer.service)">Подробнее</button>
+            </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+
+      <a class="offers-arrow offers-arrow-prev" (click)="offersCarousel.prev()">
+        <svg width="15" height="28" viewBox="0 0 15 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 2L3 14L13 26" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="offers-arrow offers-arrow-next" (click)="offersCarousel.next()">
+        <svg width="15" height="28" viewBox="0 0 15 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2L12 14L2 26" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="container">
+    <h2 class="services-title">Услуги, которые мы предлагаем</h2>
+    <div class="services-list">
+      <div class="service" *ngFor="let service of services">
+        <div class="service-image">
+          <img [src]="service.image" [alt]="service.title">
+        </div>
+        <div class="service-name">{{ service.title }}</div>
+        <div class="service-text">{{ service.text }}</div>
+        <div class="service-bottom">
+          <div class="service-price">От {{ service.price | number }}₽</div>
+          <button class="button service-button" (click)="openOrderPopup(service.title)">Подробнее</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-image">
+        <img src="/assets/images/page/about.png" alt="О компании">
+      </div>
+      <div class="about-content">
+        <h2 class="about-title">Кто мы и чем мы занимаемся?</h2>
+        <p class="about-text"><span class="about-accent">АйтиШторм</span> — это ваш помощник №1 при решении таких
+          вопросов, как продвижение в сети, разработка сайтов для бизнеса и личного бренда, сторисмейкинг, копирайтинг,
+          маркетинг, разработка визуальной концепции и создание инфопродуктов. Компания была основана в 2019 году и за
+          всё это время смогла выйти в ТОП-10 агентств, предлагающих услуги продвижения в сети.</p>
+        <h3 class="about-subtitle">Наши преимущества</h3>
+        <div class="about-advantages">
+          <div class="advantage" *ngFor="let advantage of advantages; let i = index">
+            <div class="advantage-number"><span>{{ i + 1 }}</span></div>
+            <div class="advantage-content">
+              <span class="advantage-accent">{{ advantage.title }}</span> {{ advantage.text }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -9,5 +9,6 @@ import {ViewportScroller} from "@angular/common";
 export class AppComponent {
   constructor(private viewportScroller: ViewportScroller) {
     this.viewportScroller.setOffset([0, 40]);
+    this.viewportScroller.setHistoryScrollRestoration('manual');
   }
 }
