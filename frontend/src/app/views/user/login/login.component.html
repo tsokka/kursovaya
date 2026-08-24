@@ -5,14 +5,14 @@
       <form [formGroup]="loginForm" class="auth-fields">
         <div class="auth-field">
           <input type="text" class="input" formControlName="email" placeholder="Электронная почта">
-          <div class="auth-error"
+          <div class="auth-error error"
                *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
             Введите корректный email
           </div>
         </div>
         <div class="auth-field">
           <input type="password" class="input" formControlName="password" placeholder="Пароль">
-          <div class="auth-error"
+          <div class="auth-error error"
                *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
             Введите пароль
           </div>

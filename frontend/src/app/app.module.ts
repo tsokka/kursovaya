@@ -23,6 +23,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from "@angular/common";
 import localeRu from '@angular/common/locales/ru';
+import { ArticleCardComponent } from './shared/components/article-card/article-card.component';
 
 registerLocaleData(localeRu);
 
@@ -36,7 +37,8 @@ registerLocaleData(localeRu);
     LoginComponent,
     SignupComponent,
     PolicyComponent,
-    RequestPopupComponent
+    RequestPopupComponent,
+    ArticleCardComponent
   ],
   imports: [
     BrowserModule,

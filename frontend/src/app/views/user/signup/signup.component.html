@@ -12,14 +12,14 @@
         </div>
         <div class="auth-field">
           <input type="text" class="input" formControlName="email" placeholder="Электронная почта">
-          <div class="auth-error"
+          <div class="auth-error error"
                *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
             Введите корректный email
           </div>
         </div>
         <div class="auth-field">
           <input type="password" class="input" formControlName="password" placeholder="Пароль">
-          <div class="auth-error"
+          <div class="auth-error error"
                *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
             Не менее 8 символов, минимум одна заглавная буква и одна цифра
           </div>

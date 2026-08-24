@@ -1,14 +1,18 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OwlOptions} from "ngx-owl-carousel-o";
 import {MatDialog} from "@angular/material/dialog";
 import {RequestPopupComponent} from "../../shared/components/request-popup/request-popup.component";
+import {ArticleType} from "../../../types/article.type";
+import {ArticleService} from "../../shared/services/article.service";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
+  articles: ArticleType[] = [];
+
   offers = [
     {
       label: 'Предложение месяца',
@@ -85,6 +89,24 @@ export class MainComponent {
     }
   ];
 
+  reviews = [
+    {
+      name: 'Станислав',
+      image: '/assets/images/page/review1.png',
+      text: 'Спасибо огромное АйтиШторму за прекрасный блог с полезными статьями! Именно они и побудили меня углубиться в тему SMM и начать свою карьеру.'
+    },
+    {
+      name: 'Алёна',
+      image: '/assets/images/page/review2.png',
+      text: 'Обратилась в АйтиШторм за помощью копирайтера. Ни разу ещё не пожалела! Ребята действительно вкладывают душу в то, что делают, и каждый текст, который я получаю, с нетерпением хочется выложить в сеть.'
+    },
+    {
+      name: 'Мария',
+      image: '/assets/images/page/review3.png',
+      text: 'Команда АйтиШторма за такой короткий промежуток времени сделала невозможное: от простой фирмы по услуге продвижения выросла в мощный блог о важности личного бренда. Класс!'
+    }
+  ];
+
   offersOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
@@ -96,7 +118,27 @@ export class MainComponent {
     items: 1
   };
 
-  constructor(private dialog: MatDialog) {
+  reviewsOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    margin: 25,
+    dots: false,
+    nav: false,
+    navSpeed: 700,
+    items: 3
+  };
+
+  constructor(private dialog: MatDialog,
+              private articleService: ArticleService) {
+  }
+
+  ngOnInit(): void {
+    this.articleService.getTopArticles()
+      .subscribe((data: ArticleType[]) => {
+        this.articles = data;
+      });
   }
 
   openOrderPopup(service: string): void {

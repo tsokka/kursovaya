@@ -21,16 +21,10 @@
       </owl-carousel-o>
 
       <a class="offers-arrow offers-arrow-prev" (click)="offersCarousel.prev()">
-        <svg width="15" height="28" viewBox="0 0 15 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13 2L3 14L13 26" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round"/>
-        </svg>
+        <img src="/assets/images/icons/arrow-left.svg" alt="">
       </a>
       <a class="offers-arrow offers-arrow-next" (click)="offersCarousel.next()">
-        <svg width="15" height="28" viewBox="0 0 15 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 2L12 14L2 26" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round"/>
-        </svg>
+        <img src="/assets/images/icons/arrow-right.svg" alt="">
       </a>
     </div>
   </div>
@@ -74,6 +68,94 @@
             <div class="advantage-content">
               <span class="advantage-accent">{{ advantage.title }}</span> {{ advantage.text }}
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="articles">
+  <div class="container">
+    <h2 class="articles-title">Популярные статьи из блога</h2>
+    <div class="articles-list">
+      <app-article-card *ngFor="let article of articles" [article]="article"></app-article-card>
+    </div>
+    <a routerLink="/blog" class="articles-link">
+      Перейти в блог
+      <img src="/assets/images/icons/arrow-right-small.svg" alt="">
+    </a>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="container">
+    <h2 class="reviews-title">Отзывы о нашей работе</h2>
+    <div class="reviews-slider">
+      <owl-carousel-o [options]="reviewsOptions" #reviewsCarousel>
+        <ng-template carouselSlide *ngFor="let review of reviews">
+          <div class="review">
+            <div class="review-head">
+              <div class="review-image">
+                <img [src]="review.image" [alt]="review.name">
+              </div>
+              <div class="review-name">{{ review.name }}</div>
+            </div>
+            <div class="review-text">{{ review.text }}</div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+
+      <a class="reviews-arrow reviews-arrow-prev" (click)="reviewsCarousel.prev()">
+        <img src="/assets/images/icons/arrow-left-dark.svg" alt="">
+      </a>
+      <a class="reviews-arrow reviews-arrow-next" (click)="reviewsCarousel.next()">
+        <img src="/assets/images/icons/arrow-right-dark.svg" alt="">
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contacts" id="contacts">
+  <div class="container">
+    <div class="contacts-inner">
+      <div class="contacts-map">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?um=constructor%3Acb9807e8b2cf62d6502fd3733fa8610be087dad17bc05123b455d3544cebcbd1&amp;source=constructor"
+          frameborder="0" allowfullscreen="true"></iframe>
+      </div>
+      <div class="contacts-content">
+        <h2 class="contacts-title">Контакты</h2>
+
+        <div class="contacts-block">
+          <div class="contacts-head">Адрес</div>
+          <div class="contacts-text">Главный офис компании АйтиШторм находится по адресу Пресненская наб., 12, Москва,
+            Россия, 123317.
+          </div>
+        </div>
+
+        <div class="contacts-block">
+          <div class="contacts-head">Телефон</div>
+          <a class="contacts-text" href="tel:+74993431334">+7 (499) 343-13-34</a>
+        </div>
+
+        <div class="contacts-block">
+          <div class="contacts-head">Электронный адрес</div>
+          <a class="contacts-text" href="mailto:info@itstorm.com">info@itstorm.com</a>
+        </div>
+
+        <div class="contacts-block">
+          <div class="contacts-head">Мы в социальных сетях</div>
+          <div class="contacts-social">
+            <a href="https://vk.com" target="_blank">
+              <img src="/assets/images/icons/vk-blue.svg" alt="ВКонтакте">
+            </a>
+            <a href="https://facebook.com" target="_blank">
+              <img src="/assets/images/icons/facebook-blue.svg" alt="Facebook">
+            </a>
+            <a href="https://instagram.com" target="_blank">
+              <img src="/assets/images/icons/instagram-blue.svg" alt="Instagram">
+            </a>
           </div>
         </div>
       </div>

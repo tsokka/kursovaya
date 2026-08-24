@@ -1,11 +1,9 @@
 <div class="popup">
   <div class="popup-close" (click)="closePopup()">
-    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1 1L19 19M19 1L1 19" stroke="#B5B5B5" stroke-width="1.5"/>
-    </svg>
+    <img src="/assets/images/icons/close.svg" alt="Закрыть">
   </div>
 
-  <div class="popup-content" *ngIf="!isSuccess">
+  <div class="popup-content" [class.popup-order]="data.type === 'order'" *ngIf="!isSuccess">
     <div class="popup-title">
       {{ data.type === 'order' ? 'Заявка на услугу' : 'Закажите бесплатную консультацию!' }}
     </div>
@@ -24,7 +22,7 @@
               (click)="createRequest()">
         {{ data.type === 'order' ? 'Оставить заявку' : 'Заказать консультацию' }}
       </button>
-      <div class="popup-error" *ngIf="hasError">
+      <div class="popup-error error" *ngIf="hasError">
         Ошибка при отправке формы. Попробуйте еще раз
       </div>
     </form>
