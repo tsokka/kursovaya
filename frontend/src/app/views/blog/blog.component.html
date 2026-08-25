@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="blog">
+    <h1 class="blog-title">Блог</h1>
+
+    <div class="blog-head">
+      <div class="blog-filters">
+        <div class="blog-filter" *ngFor="let filter of appliedFilters">
+          <span>{{ filter.name }}</span>
+          <img src="/assets/images/icons/close-small.svg" alt="" (click)="removeAppliedFilter(filter)">
+        </div>
+      </div>
+      <app-category-filter></app-category-filter>
+    </div>
+
+    <div class="blog-list">
+      <app-article-card *ngFor="let article of articles" [article]="article"></app-article-card>
+    </div>
+  </div>
+</div>

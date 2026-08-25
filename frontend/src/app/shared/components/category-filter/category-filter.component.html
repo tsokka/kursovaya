@@ -1,0 +1,15 @@
+<div class="filter" [class.filter-open]="open">
+  <div class="filter-head" (click)="toggle()">
+    <span>Фильтр</span>
+    <img src="/assets/images/icons/chevron-down.svg" alt="">
+  </div>
+  <div class="filter-body" *ngIf="open">
+    <div class="filter-item"
+         *ngFor="let category of categories"
+         [class.active]="isActive(category.url)"
+         (click)="updateFilterParam(category.url)">
+      <span>{{ category.name }}</span>
+      <span class="filter-sign">{{ isActive(category.url) ? '−' : '+' }}</span>
+    </div>
+  </div>
+</div>

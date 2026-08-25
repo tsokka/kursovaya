@@ -1,0 +1,70 @@
+@import "../../../../assets/styles/variables";
+
+.filter {
+  position: relative;
+  width: 257px;
+
+  .filter-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 23px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: $dark-text-color;
+
+    img {
+      display: block;
+      transition: transform 0.2s;
+    }
+  }
+
+  &.filter-open {
+    .filter-head {
+      background: $light-blue;
+      border-radius: 5px 5px 0 0;
+
+      img {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .filter-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 10;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border: 2px solid $light-blue;
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+
+    .filter-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 23px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #BEBEBE;
+
+      &:hover {
+        background: #F5F8FD;
+      }
+
+      &.active {
+        color: $dark-text-color;
+      }
+
+      .filter-sign {
+        font-size: 24px;
+      }
+    }
+  }
+}
