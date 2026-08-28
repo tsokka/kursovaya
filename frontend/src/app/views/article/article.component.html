@@ -1,0 +1,99 @@
+<div class="container" *ngIf="article">
+  <div class="article">
+    <div class="breadcrumbs">
+      <a routerLink="/blog">Блог</a>
+      <span>/</span>
+      <span class="breadcrumbs-current">{{ article.title }}</span>
+    </div>
+
+    <div class="article-head">
+      <div class="article-head-content">
+        <h1 class="article-title">{{ article.title }}</h1>
+        <div class="article-description">{{ article.description }}</div>
+      </div>
+      <div class="article-image">
+        <img [src]="serverStaticPath + article.image" [alt]="article.title">
+      </div>
+    </div>
+
+    <div class="article-body">
+      <div class="article-main">
+        <div class="article-text" [innerHTML]="article.text"></div>
+        <div class="article-share">
+          <span>Понравилась статья? Поделитесь ею в своих социальных сетях!</span>
+          <a href="https://vk.com" target="_blank"><img src="/assets/images/icons/vk-share.svg" alt="ВКонтакте"></a>
+          <a href="https://facebook.com" target="_blank"><img src="/assets/images/icons/facebook-share.svg"
+                                                              alt="Facebook"></a>
+          <a href="https://instagram.com" target="_blank"><img src="/assets/images/icons/instagram-share.svg"
+                                                               alt="Instagram"></a>
+        </div>
+      </div>
+
+      <div class="article-related" *ngIf="relatedArticles.length > 0">
+        <div class="article-related-title">Читайте также:</div>
+        <app-article-card *ngFor="let related of relatedArticles" [article]="related"></app-article-card>
+      </div>
+    </div>
+
+    <div class="comments"
+         [class.comments-guest]="!isLogged"
+         [class.comments-empty-state]="isLogged && commentsCount === 0">
+      <h2 class="comments-title">Комментарии к статье</h2>
+
+      <div class="comments-notice" *ngIf="!isLogged">
+        Чтобы оставлять комментарии,
+        <a routerLink="/login">войдите</a> или <a routerLink="/signup">зарегистрируйтесь</a>.
+      </div>
+
+      <div class="comments-empty" *ngIf="commentsCount === 0">
+        Будьте первыми, кто оставит свой комментарий к статье!
+      </div>
+
+      <form [formGroup]="commentForm" class="comment-form" *ngIf="isLogged">
+        <textarea class="comment-form-field" formControlName="text"
+                  placeholder="Напишите Ваш комментарий к статье..."></textarea>
+        <button type="button" class="button comment-form-button"
+                (click)="addComment()">Опубликовать комментарий
+        </button>
+      </form>
+
+      <div class="comment" *ngFor="let comment of comments">
+        <div class="comment-head">
+          <img class="comment-avatar" src="/assets/images/icons/avatar.svg" alt="">
+          <div class="comment-info">
+            <div class="comment-name">{{ comment.user.name }}</div>
+            <div class="comment-date">{{ comment.date | date: 'dd.MM.yyyy HH:mm' }}</div>
+          </div>
+        </div>
+        <div class="comment-text">{{ comment.text }}</div>
+
+        <div class="comment-actions">
+          <div class="comment-action" (click)="applyAction(comment, 'like')">
+            <span>{{ comment.likesCount }}</span>
+            <img [src]="isActionActive(comment.id, 'like')
+                  ? '/assets/images/icons/like-active.svg'
+                  : '/assets/images/icons/like.svg'" alt="Нравится">
+          </div>
+          <div class="comment-action" (click)="applyAction(comment, 'dislike')">
+            <span>{{ comment.dislikesCount }}</span>
+            <img [src]="isActionActive(comment.id, 'dislike')
+                  ? '/assets/images/icons/dislike-active.svg'
+                  : '/assets/images/icons/dislike.svg'" alt="Не нравится">
+          </div>
+          <div class="comment-action comment-violate" (click)="applyViolate(comment)">
+            <img src="/assets/images/icons/violate.svg" alt="Пожаловаться">
+          </div>
+        </div>
+      </div>
+
+      <div class="comments-loader" *ngIf="isCommentsLoading">
+        <img src="/assets/images/icons/loader.svg" alt="Загрузка">
+      </div>
+
+      <div class="comments-more" *ngIf="hasMoreComments && !isCommentsLoading" (click)="loadMoreComments()">
+        Загрузить ещё комментарии
+        <img src="/assets/images/icons/chevron-down.svg" alt="">
+      </div>
+    </div>
+  </div>
+</div>

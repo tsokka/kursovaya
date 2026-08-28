@@ -8,12 +8,49 @@
     @include head-lora-36;
     font-size: 38px;
     margin: 0 0 40px 0;
+
+    &.blog-title-no-filters {
+      margin-bottom: 0;
+    }
   }
 
   .blog-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 40px 24px;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+
+    .pagination-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      cursor: pointer;
+
+      &.disabled {
+        cursor: default;
+      }
+
+      img {
+        display: block;
+      }
+    }
+
+    .pagination-page {
+      padding: 0 20px;
+      cursor: pointer;
+      font-size: 20px;
+      color: $dark-text-color;
+
+      &.active {
+        color: $light-blue;
+      }
+    }
   }
 }
 
@@ -31,16 +68,16 @@
     .blog-filter {
       display: flex;
       align-items: center;
-      padding: 10px 15px;
+      padding: 8px 20px;
       margin-right: 10px;
-      border: 1px solid $blue;
+      border: 2px solid $blue;
       border-radius: 5px;
-      font-size: 14px;
-      color: $dark-text-color;
+      font-size: 16px;
+      color: $blue;
 
       img {
         display: block;
-        margin-left: 10px;
+        margin-left: 8px;
         cursor: pointer;
       }
     }

@@ -7,6 +7,7 @@ import {SignupComponent} from "./views/user/signup/signup.component";
 import {PolicyComponent} from "./views/policy/policy.component";
 import {AuthForwardGuard} from "./core/auth/auth-forward.guard";
 import {BlogComponent} from "./views/blog/blog.component";
+import {ArticleComponent} from "./views/article/article.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       {path: 'signup', component: SignupComponent, canActivate: [AuthForwardGuard]},
       {path: 'policy', component: PolicyComponent},
       {path: 'blog', component: BlogComponent},
+      {path: 'article/:url', component: ArticleComponent},
     ]
   }
 ];

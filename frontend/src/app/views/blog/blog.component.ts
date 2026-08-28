@@ -34,6 +34,9 @@ export class BlogComponent implements OnInit {
 
         this.activatedRoute.queryParams.subscribe(params => {
           this.activeParams = ActiveParamsUtil.processParams(params);
+          if (!this.activeParams.page) {
+            this.activeParams.page = 1;
+          }
 
           this.appliedFilters = [];
           this.activeParams.categories?.forEach(url => {
@@ -51,6 +54,11 @@ export class BlogComponent implements OnInit {
   getArticles(): void {
     this.articleService.getArticles(this.activeParams)
       .subscribe((data: ArticlesResponseType) => {
+        if (this.activeParams.page && this.activeParams.page > data.pages && data.pages > 0) {
+          this.openPage(1);
+          return;
+        }
+
         this.pages = [];
         for (let i = 1; i <= data.pages; i++) {
           this.pages.push(i);
@@ -67,5 +75,26 @@ export class BlogComponent implements OnInit {
         page: 1
       }
     });
+  }
+
+  openPage(page: number): void {
+    this.router.navigate(['/blog'], {
+      queryParams: {
+        categories: this.activeParams.categories || [],
+        page: page
+      }
+    });
+  }
+
+  openPrevPage(): void {
+    if (this.activeParams.page && this.activeParams.page > 1) {
+      this.openPage(this.activeParams.page - 1);
+    }
+  }
+
+  openNextPage(): void {
+    if (this.activeParams.page && this.activeParams.page < this.pages.length) {
+      this.openPage(this.activeParams.page + 1);
+    }
   }
 }

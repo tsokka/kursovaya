@@ -17,6 +17,7 @@
 
     img {
       display: block;
+      transform: rotate(180deg);
       transition: transform 0.2s;
     }
   }
@@ -27,7 +28,7 @@
       border-radius: 5px 5px 0 0;
 
       img {
-        transform: rotate(180deg);
+        transform: rotate(0deg);
       }
     }
   }

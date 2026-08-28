@@ -1,6 +1,6 @@
 <div class="container">
   <div class="blog">
-    <h1 class="blog-title">Блог</h1>
+    <h1 class="blog-title" [class.blog-title-no-filters]="appliedFilters.length === 0">Блог</h1>
 
     <div class="blog-head">
       <div class="blog-filters">
@@ -14,6 +14,28 @@
 
     <div class="blog-list">
       <app-article-card *ngFor="let article of articles" [article]="article"></app-article-card>
+    </div>
+
+    <div class="pagination" *ngIf="pages.length > 1">
+      <div class="pagination-arrow"
+           [class.disabled]="activeParams.page === 1"
+           (click)="openPrevPage()">
+        <img [src]="activeParams.page === 1
+              ? '/assets/images/icons/pagination-left-disabled.svg'
+              : '/assets/images/icons/pagination-left.svg'" alt="">
+      </div>
+      <div class="pagination-page"
+           *ngFor="let page of pages"
+           [class.active]="activeParams.page === page"
+           (click)="openPage(page)">{{ page }}
+      </div>
+      <div class="pagination-arrow"
+           [class.disabled]="activeParams.page === pages.length"
+           (click)="openNextPage()">
+        <img [src]="activeParams.page === pages.length
+              ? '/assets/images/icons/pagination-right-disabled.svg'
+              : '/assets/images/icons/pagination-right.svg'" alt="">
+      </div>
     </div>
   </div>
 </div>
