@@ -20,7 +20,7 @@ export class MainComponent implements OnInit {
       titleAccent: '−15%',
       titleEnd: '!',
       text: '',
-      image: '/assets/images/page/banner1.png',
+      image: '/assets/images/page/banner1.webp',
       service: 'Продвижение'
     },
     {
@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
       titleAccent: 'копирайтер',
       titleEnd: '?',
       text: 'Весь декабрь у нас действует акция на работу копирайтера.',
-      image: '/assets/images/page/banner2.png',
+      image: '/assets/images/page/banner2.webp',
       service: 'Копирайтинг'
     },
     {
@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
       titleAccent: '6 место',
       titleEnd: ' в ТОП-10 SMM-агентств Москвы!',
       text: 'Мы благодарим каждого, кто голосовал за нас!',
-      image: '/assets/images/page/banner3.png',
+      image: '/assets/images/page/banner3.webp',
       service: 'SMM'
     }
   ];
@@ -48,25 +48,25 @@ export class MainComponent implements OnInit {
       title: 'Создание сайтов',
       text: 'В краткие сроки мы создадим качественный и самое главное продающий сайт для продвижения Вашего бизнеса!',
       price: 7500,
-      image: '/assets/images/page/service1.png'
+      image: '/assets/images/page/service1.webp'
     },
     {
       title: 'Продвижение',
       text: 'Вам нужен качественный SMM-специалист или грамотный таргетолог? Мы готовы оказать Вам услугу «Продвижения» на наивысшем уровне!',
       price: 3500,
-      image: '/assets/images/page/service2.png'
+      image: '/assets/images/page/service2.webp'
     },
     {
       title: 'Реклама',
       text: 'Без рекламы не может обойтись ни один бизнес или специалист. Обращаясь к нам, мы гарантируем быстрый прирост клиентов за счёт правильно настроенной рекламы.',
       price: 1000,
-      image: '/assets/images/page/service3.png'
+      image: '/assets/images/page/service3.webp'
     },
     {
       title: 'Копирайтинг',
       text: 'Наши копирайтеры готовы написать Вам любые продающие тексты, которые не только обеспечат рост охватов, но и помогут выйти на новый уровень в продажах.',
       price: 750,
-      image: '/assets/images/page/service4.png'
+      image: '/assets/images/page/service4.webp'
     }
   ];
 
@@ -92,17 +92,17 @@ export class MainComponent implements OnInit {
   reviews = [
     {
       name: 'Станислав',
-      image: '/assets/images/page/review1.png',
+      image: '/assets/images/page/review1.webp',
       text: 'Спасибо огромное АйтиШторму за прекрасный блог с полезными статьями! Именно они и побудили меня углубиться в тему SMM и начать свою карьеру.'
     },
     {
       name: 'Алёна',
-      image: '/assets/images/page/review2.png',
+      image: '/assets/images/page/review2.webp',
       text: 'Обратилась в АйтиШторм за помощью копирайтера. Ни разу ещё не пожалела! Ребята действительно вкладывают душу в то, что делают, и каждый текст, который я получаю, с нетерпением хочется выложить в сеть.'
     },
     {
       name: 'Мария',
-      image: '/assets/images/page/review3.png',
+      image: '/assets/images/page/review3.webp',
       text: 'Команда АйтиШторма за такой короткий промежуток времени сделала невозможное: от простой фирмы по услуге продвижения выросла в мощный блог о важности личного бренда. Класс!'
     }
   ];
