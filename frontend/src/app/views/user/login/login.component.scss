@@ -30,6 +30,24 @@
         }
       }
 
+      .auth-field-password {
+        position: relative;
+
+        .input {
+          padding-right: 50px;
+        }
+
+        .auth-eye {
+          position: absolute;
+          right: 20px;
+          top: 18px;
+          display: block;
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+        }
+      }
+
       .auth-checkbox {
         margin-top: 5px;
       }

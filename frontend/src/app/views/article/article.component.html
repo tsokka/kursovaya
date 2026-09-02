@@ -21,9 +21,10 @@
         <div class="article-text" [innerHTML]="article.text"></div>
         <div class="article-share">
           <span>Понравилась статья? Поделитесь ею в своих социальных сетях!</span>
-          <a href="https://vk.com" target="_blank"><img src="/assets/images/icons/vk-share.svg" alt="ВКонтакте"></a>
-          <a href="https://facebook.com" target="_blank"><img src="/assets/images/icons/facebook-share.svg"
-                                                              alt="Facebook"></a>
+          <a [href]="shareVkUrl" target="_blank" rel="noopener"><img src="/assets/images/icons/vk-share.svg"
+                                                                     alt="ВКонтакте"></a>
+          <a [href]="shareFbUrl" target="_blank" rel="noopener"><img src="/assets/images/icons/facebook-share.svg"
+                                                                     alt="Facebook"></a>
           <a href="https://instagram.com" target="_blank"><img src="/assets/images/icons/instagram-share.svg"
                                                                alt="Instagram"></a>
         </div>

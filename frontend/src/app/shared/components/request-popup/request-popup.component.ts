@@ -16,8 +16,10 @@ export class RequestPopupComponent {
   requestForm = this.fb.group({
     service: [this.data.service || ''],
     name: ['', [Validators.required]],
-    phone: ['', [Validators.required]]
+    phone: ['', [Validators.required, Validators.minLength(10)]]
   });
+  serviceOptions: string[] = ['Создание сайтов', 'Продвижение', 'Реклама', 'Копирайтинг'];
+  serviceOpen: boolean = false;
 
   constructor(private fb: FormBuilder,
               private requestService: RequestService,
@@ -54,5 +56,18 @@ export class RequestPopupComponent {
 
   closePopup(): void {
     this.dialogRef.close();
+  }
+
+  toggleServices(): void {
+    this.serviceOpen = !this.serviceOpen;
+  }
+
+  selectService(service: string): void {
+    this.requestForm.get('service')?.setValue(service);
+    this.serviceOpen = false;
+  }
+
+  closeServices(): void {
+    this.serviceOpen = false;
   }
 }

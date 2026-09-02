@@ -17,7 +17,9 @@ export class PolicyComponent implements AfterViewInit {
     const fragment = this.activatedRoute.snapshot.fragment;
     if (fragment) {
       document.fonts.ready.then(() => {
-        this.viewportScroller.scrollToAnchor(fragment);
+        setTimeout(() => {
+          this.viewportScroller.scrollToAnchor(fragment);
+        }, 100);
       });
     }
   }

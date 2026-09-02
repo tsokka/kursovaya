@@ -17,8 +17,13 @@
             Введите корректный email
           </div>
         </div>
-        <div class="auth-field">
-          <input type="password" class="input" formControlName="password" placeholder="Пароль">
+        <div class="auth-field auth-field-password">
+          <input [type]="showPassword ? 'text' : 'password'" class="input" formControlName="password"
+                 placeholder="Пароль">
+          <img class="auth-eye"
+               [src]="showPassword ? '/assets/images/icons/eye-off.svg' : '/assets/images/icons/eye.svg'"
+               alt="Показать пароль"
+               (click)="showPassword = !showPassword">
           <div class="auth-error error"
                *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
             Не менее 8 символов, минимум одна заглавная буква и одна цифра

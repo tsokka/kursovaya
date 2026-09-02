@@ -1,9 +1,14 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import {TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ViewportScroller} from '@angular/common';
+import {AppComponent} from './app.component';
 
 describe('AppComponent', () => {
+  let viewportScrollerSpy: jasmine.SpyObj<ViewportScroller>;
+
   beforeEach(async () => {
+    viewportScrollerSpy = jasmine.createSpyObj('ViewportScroller', ['setOffset', 'setHistoryScrollRestoration']);
+
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
@@ -11,6 +16,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [
+        {provide: ViewportScroller, useValue: viewportScrollerSpy}
+      ]
     }).compileComponents();
   });
 
@@ -20,16 +28,13 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'frontend'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend');
+  it('should set viewport offset on init', () => {
+    TestBed.createComponent(AppComponent);
+    expect(viewportScrollerSpy.setOffset).toHaveBeenCalledOnceWith([0, 40]);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('frontend app is running!');
+  it('should set manual scroll restoration on init', () => {
+    TestBed.createComponent(AppComponent);
+    expect(viewportScrollerSpy.setHistoryScrollRestoration).toHaveBeenCalledOnceWith('manual');
   });
 });

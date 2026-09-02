@@ -49,6 +49,62 @@
         }
       }
 
+      .popup-select-field {
+        position: relative;
+
+        .popup-select {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+
+          img {
+            display: block;
+            transform: rotate(180deg);
+            transition: transform 0.2s;
+          }
+
+          &.popup-select-open {
+            border-radius: 5px 5px 0 0;
+
+            img {
+              transform: rotate(0deg);
+            }
+          }
+        }
+
+        .popup-select-list {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 100%;
+          z-index: 10;
+          box-sizing: border-box;
+          background: #FFFFFF;
+          border: 1px solid $blue;
+          border-top: 0;
+          border-radius: 0 0 5px 5px;
+          overflow: hidden;
+
+          .popup-select-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #8B8B8B;
+
+            &:hover {
+              background: #F5F8FD;
+            }
+
+            &.active {
+              color: $blue;
+            }
+          }
+        }
+      }
+
       .popup-button {
         margin-top: 16px;
         width: 422px;

@@ -30,6 +30,8 @@ export class ArticleComponent implements OnInit {
     text: ['', [Validators.required]]
   });
   userActions: { [commentId: string]: 'like' | 'dislike' } = {};
+  shareVkUrl: string = '';
+  shareFbUrl: string = '';
 
   constructor(private activatedRoute: ActivatedRoute,
               private articleService: ArticleService,
@@ -45,16 +47,17 @@ export class ArticleComponent implements OnInit {
       this.articleService.getArticle(params['url'])
         .subscribe((data: ArticleDetailType) => {
           this.article = data;
-        });
-
-      this.articleService.getArticle(params['url'])
-        .subscribe((data: ArticleDetailType) => {
-          this.article = data;
           this.comments = data.comments || [];
           this.commentsCount = data.commentsCount || 0;
+          this.setShareLinks();
           if (this.isLogged) {
             this.loadUserActions();
           }
+        });
+
+      this.articleService.getRelatedArticles(params['url'])
+        .subscribe((data: ArticleType[]) => {
+          this.relatedArticles = data;
         });
     });
   }
@@ -178,5 +181,13 @@ export class ArticleComponent implements OnInit {
           this._snackBar.open('Жалоба уже отправлена');
         }
       });
+  }
+
+  setShareLinks(): void {
+    const pageUrl = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(this.article.title);
+
+    this.shareVkUrl = `https://vk.com/share.php?url=${pageUrl}&title=${title}`;
+    this.shareFbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
   }
 }

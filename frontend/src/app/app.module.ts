@@ -23,10 +23,11 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from "@angular/common";
 import localeRu from '@angular/common/locales/ru';
-import { ArticleCardComponent } from './shared/components/article-card/article-card.component';
-import { BlogComponent } from './views/blog/blog.component';
-import { CategoryFilterComponent } from './shared/components/category-filter/category-filter.component';
-import { ArticleComponent } from './views/article/article.component';
+import {ArticleCardComponent} from './shared/components/article-card/article-card.component';
+import {BlogComponent} from './views/blog/blog.component';
+import {CategoryFilterComponent} from './shared/components/category-filter/category-filter.component';
+import {ArticleComponent} from './views/article/article.component';
+import {NgxMaskModule} from "ngx-mask";
 
 registerLocaleData(localeRu);
 
@@ -56,7 +57,8 @@ registerLocaleData(localeRu);
     AppRoutingModule,
     BrowserAnimationsModule,
     CarouselModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},

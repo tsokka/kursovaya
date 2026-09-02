@@ -19,6 +19,7 @@ export class SignupComponent {
     password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-ZА-Я])(?=.*\d).{8,}$/)]],
     agree: [false, [Validators.requiredTrue]]
   });
+  showPassword: boolean = false;
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,

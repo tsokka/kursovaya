@@ -39,7 +39,7 @@ export class MainComponent implements OnInit {
       titleEnd: ' в ТОП-10 SMM-агентств Москвы!',
       text: 'Мы благодарим каждого, кто голосовал за нас!',
       image: '/assets/images/page/banner3.webp',
-      service: 'SMM'
+      service: 'Продвижение'
     }
   ];
 

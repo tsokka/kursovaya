@@ -8,14 +8,28 @@
       {{ data.type === 'order' ? 'Заявка на услугу' : 'Закажите бесплатную консультацию!' }}
     </div>
     <form [formGroup]="requestForm" class="popup-fields">
-      <div class="popup-field" *ngIf="data.type === 'order'">
-        <input type="text" class="input popup-service" formControlName="service" readonly>
+      <div class="popup-field popup-select-field" *ngIf="data.type === 'order'">
+        <div class="input popup-select" [class.popup-select-open]="serviceOpen" (click)="toggleServices()">
+          <span>{{ requestForm.value.service }}</span>
+          <img src="/assets/images/icons/chevron-down-blue.svg" alt="">
+        </div>
+        <div class="popup-select-list" *ngIf="serviceOpen">
+          <div class="popup-select-item"
+               *ngFor="let option of serviceOptions"
+               [class.active]="requestForm.value.service === option"
+               (click)="selectService(option)">{{ option }}
+          </div>
+        </div>
       </div>
       <div class="popup-field">
         <input type="text" class="input" formControlName="name" placeholder="Ваше имя">
       </div>
       <div class="popup-field">
-        <input type="text" class="input" formControlName="phone" placeholder="Ваш номер телефона">
+        <input type="text" class="input" formControlName="phone" placeholder="Ваш номер телефона"
+               mask="(000) 000-00-00" prefix="+7 " [validation]="true">
+        <div class="error" *ngIf="requestForm.get('phone')?.invalid && requestForm.get('phone')?.touched">
+          Введите номер полностью
+        </div>
       </div>
       <button type="button" class="button popup-button"
               [disabled]="!requestForm.valid"
