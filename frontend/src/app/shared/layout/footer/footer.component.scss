@@ -1,21 +1,40 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
 
 footer.footer {
   background: $light-blue;
   padding: 40px 0 54px 0;
+
+  @include md {
+    padding: 30px 0 40px 0;
+  }
 
   .footer-top {
     display: flex;
     align-items: center;
     margin-bottom: 40px;
 
+    @include md {
+      display: block;
+      margin-bottom: 30px;
+    }
+
     .logo {
       display: block;
       margin-right: 40px;
 
+      @include md {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+
       img {
         display: block;
         height: 47px;
+
+        @include xs {
+          height: 36px;
+        }
       }
     }
 
@@ -24,6 +43,11 @@ footer.footer {
       padding: 0;
       display: flex;
       align-items: center;
+
+      @include md {
+        flex-wrap: wrap;
+        row-gap: 12px;
+      }
 
       li {
         list-style: none;
@@ -54,6 +78,18 @@ footer.footer {
     grid-template-columns: 313px 213px 187px 1fr;
     margin-bottom: 6px;
 
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 30px;
+      row-gap: 30px;
+    }
+
+    @include xs {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+      row-gap: 26px;
+    }
+
     .footer-block {
       display: flex;
       flex-direction: column;
@@ -71,6 +107,10 @@ footer.footer {
         line-height: 130%;
         color: $dark-text-color;
         text-decoration: none;
+
+        @include xs {
+          font-size: 14px;
+        }
       }
 
       .footer-button {
@@ -104,5 +144,13 @@ footer.footer {
   .footer-copyright {
     font-size: 16px;
     color: $blue;
+
+    @include md {
+      margin-top: 24px;
+    }
+
+    @include xs {
+      font-size: 14px;
+    }
   }
 }

@@ -15,3 +15,27 @@
   font-size: 50px;
   color: $blue;
 }
+
+@mixin lg {
+  @media (max-width: #{$screen-lg}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: #{$screen-md}) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media (max-width: #{$screen-xs}) {
+    @content;
+  }
+}
