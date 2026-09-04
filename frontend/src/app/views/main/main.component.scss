@@ -33,13 +33,9 @@
     }
   }
 
-  // все слайды тянутся по самому высокому — иначе высота прыгает от текста
   ::ng-deep .owl-stage {
     display: flex;
 
-    // clearfix-псевдоэлемент owl во flex-контейнере становится обычным
-    // flex-элементом и переполняет стейдж — слайды сжимаются, transform
-    // остаётся прежним, справа вылезает край следующего слайда
     &::after {
       content: none;
     }
@@ -48,8 +44,6 @@
   ::ng-deep .owl-item {
     display: flex;
     height: auto;
-    // ширину слайда owl задаёт инлайном и по ней же считает transform,
-    // поэтому слайд не должен ни сжиматься, ни распирать себя контентом
     flex-shrink: 0;
     min-width: 0;
 
@@ -80,7 +74,6 @@
         border: 1px solid #FFFFFF;
         background: transparent;
 
-        // на голубой плашке белые точки не видны
         @include md {
           border-color: $blue;
         }
@@ -151,8 +144,6 @@
       padding: 0 80px;
       box-sizing: border-box;
 
-      // ширина фиксированная, а не в %, потому что эллипс задан в жёстких
-      // пикселях и его кривая всегда упирается в ~660px от левого края
       @include lg {
         width: 660px;
         padding: 0 50px;
@@ -311,8 +302,6 @@
 
   .services-list {
     display: grid;
-    // minmax(0, 1fr) вместо 1fr — иначе колонка не сжимается ниже min-content
-    // и сетка вылезает за контейнер
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 27px;
 
@@ -333,6 +322,7 @@
       grid-template-columns: minmax(0, 1fr);
       gap: 30px;
       max-width: 420px;
+      margin: 0 auto;
     }
   }
 
@@ -350,8 +340,6 @@
         object-fit: cover;
         border-radius: 5px;
 
-        // на узких карточка становится плоской, чтобы картинка
-        // не съедала весь экран
         @include sm {
           aspect-ratio: 3 / 2;
         }
@@ -433,9 +421,6 @@
     display: flex;
     align-items: flex-start;
 
-    // с 992 картинка и текст встают в один ряд, преимущества уходят
-    // под них на всю ширину. display: contents разворачивает about-content,
-    // чтобы его дети стали ячейками этой же сетки
     @include md {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -677,6 +662,7 @@
       grid-template-columns: minmax(0, 1fr);
       gap: 30px;
       max-width: 420px;
+      margin: 0 auto;
     }
   }
 

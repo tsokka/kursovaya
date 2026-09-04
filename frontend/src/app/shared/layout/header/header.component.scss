@@ -174,7 +174,6 @@ header.header {
     align-items: center;
     text-decoration: none;
     cursor: pointer;
-    // единственный сжимаемый элемент строки — нехватку места забирает имя
     min-width: 0;
 
     img {
@@ -191,8 +190,6 @@ header.header {
 
     span {
       display: block;
-      // имя приходит с бэкенда без ограничения длины, поэтому многоточие
-      // включено на всех разрешениях, а не только на узких
       max-width: 180px;
       overflow: hidden;
       white-space: nowrap;
