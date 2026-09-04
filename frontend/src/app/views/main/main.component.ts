@@ -110,8 +110,8 @@ export class MainComponent implements OnInit {
   offersOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
+    touchDrag: true,
+    pullDrag: true,
     dots: true,
     nav: false,
     navSpeed: 700,
@@ -121,13 +121,18 @@ export class MainComponent implements OnInit {
   reviewsOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
+    touchDrag: true,
+    pullDrag: true,
     margin: 25,
     dots: false,
     nav: false,
     navSpeed: 700,
-    items: 3
+    items: 3,
+    responsive: {
+      0: {items: 1, margin: 20},
+      768: {items: 2, margin: 20},
+      993: {items: 3, margin: 25}
+    }
   };
 
   constructor(private dialog: MatDialog,

@@ -16,6 +16,12 @@
   color: $blue;
 }
 
+@mixin xl {
+  @media (max-width: #{$screen-xl}) {
+    @content;
+  }
+}
+
 @mixin lg {
   @media (max-width: #{$screen-lg}) {
     @content;

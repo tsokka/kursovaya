@@ -147,6 +147,7 @@ header.header {
   }
 
   .header-phone {
+    margin-left: 40px;
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     font-size: 16px;
@@ -173,13 +174,15 @@ header.header {
     align-items: center;
     text-decoration: none;
     cursor: pointer;
-    flex-shrink: 0;
+    // единственный сжимаемый элемент строки — нехватку места забирает имя
+    min-width: 0;
 
     img {
       display: block;
       width: 24px;
       height: 24px;
       margin-right: 7px;
+      flex-shrink: 0;
 
       @include xs {
         margin-right: 0;
@@ -187,17 +190,20 @@ header.header {
     }
 
     span {
+      display: block;
+      // имя приходит с бэкенда без ограничения длины, поэтому многоточие
+      // включено на всех разрешениях, а не только на узких
+      max-width: 180px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       font-family: "Montserrat", sans-serif;
       font-weight: 500;
       font-size: 16px;
       color: $dark-text-color;
 
       @include md {
-        display: block;
         max-width: 130px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
       }
 
       @include xs {

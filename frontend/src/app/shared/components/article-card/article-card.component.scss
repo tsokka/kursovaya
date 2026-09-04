@@ -1,4 +1,5 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
 
 :host {
   display: flex;
@@ -15,21 +16,35 @@
 
     img {
       display: block;
-      width: 291px;
-      height: 291px;
+      width: 100%;
+      aspect-ratio: 1;
       object-fit: cover;
       border-radius: 5px;
+
+      @include sm {
+        aspect-ratio: 3 / 2;
+      }
+
+      @include xs {
+        aspect-ratio: 16 / 9;
+      }
     }
 
     .article-card-category {
       position: absolute;
       top: 10px;
-      right: 9px;
+      right: 10px;
       padding: 12px 18px;
       border-radius: 5px;
       background: #FFFFFF;
       font-size: 11px;
       color: $blue;
+
+      @include lg {
+        top: 8px;
+        right: 8px;
+        padding: 8px 12px;
+      }
     }
   }
 
@@ -40,6 +55,11 @@
     color: $blue;
     text-decoration: none;
     margin-bottom: 20px;
+
+    @include lg {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
   }
 
   .article-card-text {
@@ -48,11 +68,19 @@
     color: $dark-text-color;
     margin-bottom: 20px;
     flex-grow: 1;
+
+    @include lg {
+      margin-bottom: 15px;
+    }
   }
 
   .article-card-more {
     font-size: 16px;
     color: $blue;
     align-self: flex-start;
+
+    @include lg {
+      font-size: 14px;
+    }
   }
 }
