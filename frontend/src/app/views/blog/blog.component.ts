@@ -20,6 +20,7 @@ export class BlogComponent implements OnInit {
   appliedFilters: AppliedFilterType[] = [];
   activeParams: ActiveParamsType = {categories: []};
   pages: number[] = [];
+  visiblePages: (number | null)[] = [];
 
   constructor(private articleService: ArticleService,
               private categoryService: CategoryService,
@@ -64,7 +65,30 @@ export class BlogComponent implements OnInit {
           this.pages.push(i);
         }
         this.articles = data.items;
+        this.updateVisiblePages();
       });
+  }
+
+  private updateVisiblePages(): void {
+    const total = this.pages.length;
+    const current = this.activeParams.page || 1;
+    const from = Math.max(1, current - 1);
+    const to = Math.min(total, current + 1);
+    const result: (number | null)[] = [];
+
+    if (from > 1) {
+      result.push(null);
+    }
+
+    for (let i = from; i <= to; i++) {
+      result.push(i);
+    }
+
+    if (to < total) {
+      result.push(null);
+    }
+
+    this.visiblePages = result;
   }
 
   removeAppliedFilter(appliedFilter: AppliedFilterType): void {

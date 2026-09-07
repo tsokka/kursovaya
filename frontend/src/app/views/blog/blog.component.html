@@ -24,11 +24,14 @@
               ? '/assets/images/icons/pagination-left-disabled.svg'
               : '/assets/images/icons/pagination-left.svg'" alt="">
       </div>
-      <div class="pagination-page"
-           *ngFor="let page of pages"
-           [class.active]="activeParams.page === page"
-           (click)="openPage(page)">{{ page }}
-      </div>
+      <ng-container *ngFor="let page of visiblePages">
+        <div class="pagination-dots" *ngIf="page === null">…</div>
+        <div class="pagination-page"
+             *ngIf="page !== null"
+             [class.active]="activeParams.page === page"
+             (click)="openPage(page!)">{{ page }}
+        </div>
+      </ng-container>
       <div class="pagination-arrow"
            [class.disabled]="activeParams.page === pages.length"
            (click)="openNextPage()">

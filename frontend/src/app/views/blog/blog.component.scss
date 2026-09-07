@@ -89,6 +89,18 @@
       }
     }
 
+    .pagination-dots {
+      padding: 0 10px;
+      font-size: 20px;
+      color: $dark-text-color;
+      user-select: none;
+
+      @include xs {
+        padding: 0 6px;
+        font-size: 16px;
+      }
+    }
+
     .pagination-page {
       padding: 0 20px;
       cursor: pointer;
