@@ -10,6 +10,11 @@
     right: 30px;
     cursor: pointer;
     line-height: 0;
+
+    @include xs {
+      top: 16px;
+      right: 16px;
+    }
   }
 
   .popup-content {
@@ -17,8 +22,24 @@
     flex-direction: column;
     padding: 95px 153px 94px 152px;
 
+    @include sm {
+      padding: 60px 40px;
+    }
+
+    @include xs {
+      padding: 50px 20px;
+    }
+
     &.popup-order {
       padding: 94px 153px 86px 152px;
+
+      @include sm {
+        padding: 60px 40px;
+      }
+
+      @include xs {
+        padding: 50px 20px;
+      }
     }
 
     .popup-title {
@@ -27,6 +48,16 @@
       margin-bottom: 30px;
       font-size: 38px;
       line-height: 130%;
+
+      @include sm {
+        font-size: 30px;
+        margin-bottom: 24px;
+      }
+
+      @include xs {
+        font-size: 26px;
+        margin-bottom: 20px;
+      }
     }
 
     .popup-fields {
@@ -42,6 +73,10 @@
           font-weight: 400;
           font-size: 14px;
           color: $blue;
+
+          @include sm {
+            width: 100%;
+          }
         }
 
         .popup-service {
@@ -56,43 +91,48 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 10px;
+          line-height: 19px;
           cursor: pointer;
+          user-select: none;
+
+          span {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
 
           img {
             display: block;
+            flex-shrink: 0;
             transform: rotate(180deg);
-            transition: transform 0.2s;
+            transition: transform 0.2s ease;
           }
 
-          &.popup-select-open {
-            border-radius: 5px 5px 0 0;
-
-            img {
-              transform: rotate(0deg);
-            }
+          &.popup-select-open img {
+            transform: rotate(0deg);
           }
         }
 
         .popup-select-list {
           position: absolute;
+          top: calc(100% + 4px);
           left: 0;
           right: 0;
-          top: 100%;
-          z-index: 10;
+          z-index: 2;
+          max-height: 220px;
+          overflow-y: auto;
           box-sizing: border-box;
           background: #FFFFFF;
           border: 1px solid $blue;
-          border-top: 0;
-          border-radius: 0 0 5px 5px;
-          overflow: hidden;
+          border-radius: 5px;
+          box-shadow: 0 6px 18px rgba(7, 23, 57, 0.12);
 
           .popup-select-item {
             padding: 12px 20px;
-            cursor: pointer;
-            font-family: "Montserrat", sans-serif;
-            font-weight: 400;
             font-size: 14px;
-            color: #8B8B8B;
+            color: $dark-text-color;
+            cursor: pointer;
 
             &:hover {
               background: #F5F8FD;
@@ -108,6 +148,10 @@
       .popup-button {
         margin-top: 16px;
         width: 422px;
+
+        @include sm {
+          width: 100%;
+        }
       }
 
       .popup-error {
@@ -120,10 +164,23 @@
     align-items: center;
     padding: 163px 142px;
 
+    @include sm {
+      padding: 80px 40px;
+    }
+
+    @include xs {
+      padding: 60px 20px;
+    }
+
     .popup-success-text {
       font-size: 14px;
       color: $text-color;
       margin-bottom: 40px;
+
+      @include xs {
+        text-align: center;
+        margin-bottom: 30px;
+      }
     }
 
     .popup-success-button {
