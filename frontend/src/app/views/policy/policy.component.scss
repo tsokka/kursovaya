@@ -5,13 +5,39 @@
   padding: 60px 0 100px 0;
   max-width: 900px;
 
+  @include md {
+    padding: 40px 0 60px 0;
+  }
+
+  @include xs {
+    padding: 30px 0 50px 0;
+  }
+
   .policy-title {
     @include head-lora-36;
     margin: 0 0 40px 0;
+
+    @include md {
+      font-size: 30px;
+      margin-bottom: 30px;
+    }
+
+    @include xs {
+      font-size: 26px;
+      margin-bottom: 24px;
+    }
   }
 
   .policy-section {
     margin-bottom: 50px;
+
+    @include md {
+      margin-bottom: 35px;
+    }
+
+    @include xs {
+      margin-bottom: 30px;
+    }
 
     &:last-child {
       margin-bottom: 0;
@@ -21,6 +47,15 @@
       @include head-lora-36;
       font-size: 28px;
       margin: 0 0 25px 0;
+
+      @include md {
+        font-size: 24px;
+      }
+
+      @include xs {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
     }
 
     .policy-subhead {
@@ -29,6 +64,11 @@
       font-size: 18px;
       color: $blue;
       margin: 35px 0 15px 0;
+
+      @include xs {
+        font-size: 16px;
+        margin-top: 25px;
+      }
     }
 
     .policy-subhead-small {

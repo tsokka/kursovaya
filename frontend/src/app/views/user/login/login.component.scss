@@ -6,12 +6,45 @@
   justify-content: space-between;
   padding: 106px 0 92px 0;
 
+  @include lg {
+    gap: 30px;
+  }
+
+  @include md {
+    justify-content: center;
+    padding: 92px 0;
+  }
+
+  @include xs {
+    padding: 50px 0;
+  }
+
   .auth-form {
     width: 430px;
+
+    @include lg {
+      flex: 0 0 430px;
+    }
+
+    @include md {
+      flex: 0 1 auto;
+      width: 100%;
+      max-width: 430px;
+    }
 
     .auth-title {
       @include head-lora-36;
       margin: 0 0 40px 0;
+
+      @include md {
+        font-size: 30px;
+        margin-bottom: 30px;
+      }
+
+      @include xs {
+        font-size: 26px;
+        margin-bottom: 24px;
+      }
     }
 
     .auth-fields {
@@ -19,32 +52,28 @@
       flex-direction: column;
 
       .auth-field {
+        position: relative;
         margin-bottom: 5px;
 
         .input {
           width: 422px;
-        }
-
-        .auth-error {
-          margin-top: 5px;
-        }
-      }
-
-      .auth-field-password {
-        position: relative;
-
-        .input {
           padding-right: 50px;
+
+          @include lg {
+            width: 100%;
+          }
         }
 
         .auth-eye {
           position: absolute;
-          right: 20px;
-          top: 18px;
-          display: block;
-          width: 20px;
-          height: 20px;
+          right: 18px;
+          top: 26px;
+          transform: translateY(-50%);
           cursor: pointer;
+        }
+
+        .auth-error {
+          margin-top: 5px;
         }
       }
 
@@ -55,6 +84,14 @@
       .auth-button {
         margin-top: 40px;
         width: 422px;
+
+        @include lg {
+          width: 100%;
+        }
+
+        @include xs {
+          margin-top: 30px;
+        }
       }
     }
 
@@ -71,9 +108,25 @@
     }
   }
 
-  .auth-image img {
-    display: block;
-    width: 607px;
-    border-radius: 5px;
+  .auth-image {
+    @include lg {
+      flex: 0 1 607px;
+      min-width: 0;
+    }
+
+    @include md {
+      display: none;
+    }
+
+    img {
+      display: block;
+      width: 607px;
+      border-radius: 5px;
+
+      @include lg {
+        width: 100%;
+        height: auto;
+      }
+    }
   }
 }
