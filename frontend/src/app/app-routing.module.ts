@@ -1,27 +1,18 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from "./shared";
-import {
-  MainComponent,
-  BlogComponent,
-  ArticleComponent,
-  PolicyComponent,
-  LoginComponent,
-  SignupComponent
-} from "./views";
-import {AuthForwardGuard} from "./core";
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
-      {path: '', component: MainComponent},
-      {path: 'login', component: LoginComponent, canActivate: [AuthForwardGuard]},
-      {path: 'signup', component: SignupComponent, canActivate: [AuthForwardGuard]},
-      {path: 'policy', component: PolicyComponent},
-      {path: 'blog', component: BlogComponent},
-      {path: 'article/:url', component: ArticleComponent},
+      {path: 'blog', loadChildren: () => import('./views/blog/blog.module').then(m => m.BlogModule)},
+      {path: 'article', loadChildren: () => import('./views/article/article.module').then(m => m.ArticleModule)},
+      {path: 'policy', loadChildren: () => import('./views/policy/policy.module').then(m => m.PolicyModule)},
+      {path: 'login', loadChildren: () => import('./views/user/login/login.module').then(m => m.LoginModule)},
+      {path: 'signup', loadChildren: () => import('./views/user/signup/signup.module').then(m => m.SignupModule)},
+      {path: '', loadChildren: () => import('./views/main/main.module').then(m => m.MainModule)}
     ]
   }
 ];

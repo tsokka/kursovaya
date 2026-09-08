@@ -6,8 +6,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatMenuModule} from "@angular/material/menu";
-import {CarouselModule} from "ngx-owl-carousel-o";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {MatDialogModule} from "@angular/material/dialog";
 import {LOCALE_ID} from '@angular/core';
@@ -15,16 +13,7 @@ import {registerLocaleData} from "@angular/common";
 import localeRu from '@angular/common/locales/ru';
 import {NgxMaskModule} from "ngx-mask";
 import {AppComponent} from './app.component';
-import {LayoutComponent, HeaderComponent, FooterComponent} from './shared';
-import {ArticleCardComponent, CategoryFilterComponent, RequestPopupComponent, ClickOutsideDirective} from './shared';
-import {
-  MainComponent,
-  BlogComponent,
-  ArticleComponent,
-  PolicyComponent,
-  LoginComponent,
-  SignupComponent
-} from './views';
+import {LayoutComponent, HeaderComponent, FooterComponent, SharedModule} from './shared';
 import {AuthInterceptor} from './core';
 
 registerLocaleData(localeRu);
@@ -34,29 +23,17 @@ registerLocaleData(localeRu);
     AppComponent,
     LayoutComponent,
     HeaderComponent,
-    FooterComponent,
-    MainComponent,
-    LoginComponent,
-    SignupComponent,
-    PolicyComponent,
-    RequestPopupComponent,
-    ArticleCardComponent,
-    BlogComponent,
-    CategoryFilterComponent,
-    ArticleComponent,
-    ClickOutsideDirective
+    FooterComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    MatMenuModule,
-    FormsModule,
-    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CarouselModule,
+    HttpClientModule,
+    SharedModule,
+    MatMenuModule,
     MatDialogModule,
+    MatSnackBarModule,
     NgxMaskModule.forRoot()
   ],
   providers: [
