@@ -10,6 +10,7 @@ import {AuthService} from "./auth.service";
 import {catchError, Observable, switchMap, throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {RefreshResponseType, DefaultResponseType} from "../../../types";
+import {TypeGuardUtil} from "../../shared";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -43,24 +44,14 @@ export class AuthInterceptor implements HttpInterceptor {
     return this.authService.refresh()
       .pipe(
         switchMap((result: DefaultResponseType | RefreshResponseType) => {
-          let error = '';
-          if ((result as DefaultResponseType).error !== undefined) {
-            error = (result as DefaultResponseType).message;
+          if (TypeGuardUtil.isDefaultResponse(result)) {
+            return throwError(() => new Error(result.message));
           }
 
-          const refreshResult = result as RefreshResponseType;
-          if (!refreshResult.accessToken || !refreshResult.refreshToken) {
-            error = 'Ошибка авторизации';
-          }
-
-          if (error) {
-            return throwError(() => new Error(error));
-          }
-
-          this.authService.setTokens(refreshResult.accessToken, refreshResult.refreshToken);
+          this.authService.setTokens(result.accessToken, result.refreshToken);
 
           const authReq = req.clone({
-            headers: req.headers.set('x-auth', refreshResult.accessToken)
+            headers: req.headers.set('x-auth', result.accessToken)
           });
 
           return next.handle(authReq);

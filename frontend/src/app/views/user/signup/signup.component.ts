@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {AuthService} from "../../../core/auth/auth.service";
+import {AuthService} from "../../../core";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {HttpErrorResponse} from "@angular/common/http";
 import {LoginResponseType, DefaultResponseType} from "../../../../types";
+import {TypeGuardUtil} from "../../../shared";
 
 @Component({
   selector: 'app-signup',
@@ -32,23 +33,13 @@ export class SignupComponent {
       this.authService.signup(this.signupForm.value.name, this.signupForm.value.email, this.signupForm.value.password)
         .subscribe({
           next: (data: DefaultResponseType | LoginResponseType) => {
-            let error: string | null = null;
-            if ((data as DefaultResponseType).error !== undefined) {
-              error = (data as DefaultResponseType).message;
+            if (TypeGuardUtil.isDefaultResponse(data)) {
+              this._snackBar.open(data.message);
+              throw new Error(data.message);
             }
 
-            const signupResponse = data as LoginResponseType;
-            if (!signupResponse.accessToken || !signupResponse.refreshToken || !signupResponse.userId) {
-              error = 'Ошибка регистрации';
-            }
-
-            if (error) {
-              this._snackBar.open(error);
-              throw new Error(error);
-            }
-
-            this.authService.setTokens(signupResponse.accessToken, signupResponse.refreshToken);
-            this.authService.userId = signupResponse.userId;
+            this.authService.setTokens(data.accessToken, data.refreshToken);
+            this.authService.userId = data.userId;
             this._snackBar.open('Вы успешно зарегистрировались');
             this.router.navigate(['/']);
           },

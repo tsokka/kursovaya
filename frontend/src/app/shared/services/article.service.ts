@@ -17,9 +17,19 @@ export class ArticleService {
   }
 
   getArticles(params: ActiveParamsType): Observable<ArticlesResponseType> {
-    return this.http.get<ArticlesResponseType>(environment.api + 'articles', {
-      params: params as unknown as HttpParams
-    });
+    let httpParams = new HttpParams();
+
+    if (params.categories) {
+      params.categories.forEach(category => {
+        httpParams = httpParams.append('categories', category);
+      });
+    }
+
+    if (params.page) {
+      httpParams = httpParams.set('page', params.page);
+    }
+
+    return this.http.get<ArticlesResponseType>(environment.api + 'articles', {params: httpParams});
   }
 
   getArticle(url: string): Observable<ArticleDetailType> {

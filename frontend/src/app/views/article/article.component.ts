@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ArticleService} from "../../shared/services/article.service";
+import {ArticleService, CommentService, TypeGuardUtil} from "../../shared";
 import {environment} from "../../../environments/environment";
-import {CommentService} from "../../shared/services/comment.service";
-import {AuthService} from "../../core/auth/auth.service";
+import {AuthService} from "../../core";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {
@@ -15,7 +14,6 @@ import {
   CommentReactionType,
   DefaultResponseType
 } from "../../../types";
-
 
 @Component({
   selector: 'app-article',
@@ -119,21 +117,22 @@ export class ArticleComponent implements OnInit {
   private loadUserActions(): void {
     this.commentService.getArticleCommentActions(this.article.id)
       .subscribe((data: CommentActionType[] | DefaultResponseType) => {
-        if ((data as DefaultResponseType).error !== undefined) {
+        if (TypeGuardUtil.isDefaultResponse(data)) {
           return;
         }
+
         this.userActions = {};
-        (data as CommentActionType[]).forEach(item => {
+        data.forEach(item => {
           this.userActions[item.comment] = item.action;
         });
       });
   }
 
-  isActionActive(commentId: string, action: 'like' | 'dislike'): boolean {
+  isActionActive(commentId: string, action: CommentReactionType): boolean {
     return this.userActions[commentId] === action;
   }
 
-  applyAction(comment: CommentType, action: 'like' | 'dislike'): void {
+  applyAction(comment: CommentType, action: CommentReactionType): void {
     if (!this.isLogged) {
       this._snackBar.open('Чтобы голосовать, войдите в личный кабинет');
       return;

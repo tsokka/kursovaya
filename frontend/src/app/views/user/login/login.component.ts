@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {AuthService} from "../../../core/auth/auth.service";
+import {AuthService} from "../../../core";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LoginResponseType, DefaultResponseType} from "../../../../types";
 import {HttpErrorResponse} from "@angular/common/http";
+import {TypeGuardUtil} from "../../../shared";
 
 @Component({
   selector: 'app-login',
@@ -29,15 +30,16 @@ export class LoginComponent {
     return typeof data === 'object' && data !== null && 'error' in data;
   }
 
-  protected login(): void {
+  login(): void {
     if (this.loginForm.valid && this.loginForm.value.email && this.loginForm.value.password) {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password, !!this.loginForm.value.rememberMe)
         .subscribe({
           next: (data: DefaultResponseType | LoginResponseType) => {
-            if (this._isDefaultResponse(data)) {
+            if (TypeGuardUtil.isDefaultResponse(data)) {
               this._snackBar.open(data.message);
               throw new Error(data.message);
             }
+
             this.authService.setTokens(data.accessToken, data.refreshToken);
             this.authService.userId = data.userId;
             this._snackBar.open('Вы успешно авторизовались');

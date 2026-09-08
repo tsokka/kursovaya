@@ -1,9 +1,10 @@
 import {Component, OnInit, HostListener, ElementRef} from '@angular/core';
-import {AuthService} from "../../../core/auth/auth.service";
+import {AuthService} from "../../../core";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {UserService} from "../../services/user.service";
+import {UserService} from "../../services";
 import {UserInfoType, DefaultResponseType} from "../../../../types";
+import {TypeGuardUtil} from "../../utils";
 
 @Component({
   selector: 'app-header',
@@ -65,12 +66,12 @@ export class HeaderComponent implements OnInit {
 
     this.userService.getUserInfo()
       .subscribe((data: UserInfoType | DefaultResponseType) => {
-        if ((data as DefaultResponseType).error !== undefined) {
+        if (TypeGuardUtil.isDefaultResponse(data)) {
           return;
         }
-        const userInfo = data as UserInfoType;
-        this.userName = userInfo.name;
-        this.authService.userName = userInfo.name;
+
+        this.userName = data.name;
+        this.authService.userName = data.name;
       });
   }
 
