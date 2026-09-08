@@ -131,45 +131,35 @@
   }
 
   .article-body {
-    display: flex;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 818px 291px;
+    grid-template-rows: auto auto minmax(0, 1fr);
     justify-content: space-between;
 
     @include lg {
-      gap: 30px;
+      grid-template-columns: minmax(0, 1fr) 291px;
+      column-gap: 30px;
     }
 
     @include md {
-      flex-direction: column;
-      gap: 40px;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto;
     }
 
     .article-main {
-      width: 818px;
-
-      @include lg {
-        width: auto;
-        min-width: 0;
-        flex: 1 1 auto;
-      }
+      min-width: 0;
+      grid-column: 1;
+      grid-row: 1;
 
       @include md {
-        width: 100%;
-      }
-
-      @include lg {
-        width: auto;
-        min-width: 0;
-        flex: 1 1 auto;
-      }
-
-      @include md {
-        width: 100%;
+        grid-column: auto;
+        grid-row: auto;
       }
 
       .article-text {
         font-size: 14px;
         line-height: 130%;
+        overflow-wrap: break-word;
         color: $dark-text-color;
 
         ::ng-deep {
@@ -255,9 +245,13 @@
 
     .article-related {
       width: 291px;
-      flex-shrink: 0;
+      grid-column: 2;
+      grid-row: 1 / -1;
 
       @include md {
+        grid-column: auto;
+        grid-row: auto;
+        margin-top: 40px;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 20px;
@@ -268,7 +262,7 @@
         grid-template-columns: minmax(0, 1fr);
         gap: 30px;
         max-width: 420px;
-        margin: 0 auto;
+        margin: 40px auto 0 auto;
       }
 
       .article-related-title {
@@ -290,13 +284,28 @@
         display: block;
         margin-bottom: 60px;
 
+        &:last-child {
+          margin-bottom: 0;
+        }
+
         @include md {
+          display: flex;
           margin-bottom: 0;
         }
 
         ::ng-deep .article-card-text {
           margin-bottom: 38px;
         }
+      }
+    }
+
+    .comments {
+      grid-column: 1;
+      grid-row: 2;
+
+      @include md {
+        grid-column: auto;
+        grid-row: auto;
       }
     }
   }
@@ -373,13 +382,9 @@
     }
 
     .comment {
+      width: 100%;
+      max-width: 854px;
       margin-bottom: 40px;
-      width: 854px;
-
-      @include lg {
-        width: 100%;
-        max-width: 854px;
-      }
 
       @include xs {
         margin-bottom: 30px;
@@ -455,6 +460,10 @@
             display: block;
             width: 24px;
             height: 24px;
+          }
+
+          &.active span {
+            color: $blue;
           }
 
           &.comment-violate {
