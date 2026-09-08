@@ -7,7 +7,7 @@ import {
   HttpRequest
 } from "@angular/common/http";
 import {AuthService} from "./auth.service";
-import {catchError, finalize, Observable, switchMap, throwError} from "rxjs";
+import {catchError, Observable, switchMap, throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {RefreshResponseType, DefaultResponseType} from "../../../types";
 

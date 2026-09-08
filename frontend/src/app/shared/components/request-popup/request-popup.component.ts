@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {RequestService} from "../../services/request.service";
+import {RequestService} from "../../services";
 import {RequestPopupDataType, DefaultResponseType} from "../../../../types";
 
 @Component({
