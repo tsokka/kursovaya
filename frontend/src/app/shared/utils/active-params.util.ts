@@ -1,5 +1,5 @@
 import {Params} from "@angular/router";
-import {ActiveParamsType} from "../../../types/active-params.type";
+import {ActiveParamsType} from "../../../types";
 
 export class ActiveParamsUtil {
   static processParams(params: Params): ActiveParamsType {

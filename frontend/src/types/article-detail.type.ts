@@ -1,14 +1,8 @@
 import {CommentType} from "./comment.type";
+import {ArticleType} from "./article.type";
 
-export type ArticleDetailType = {
-  id: string,
-  title: string,
-  description: string,
-  image: string,
+export type ArticleDetailType = ArticleType & {
   text: string,
-  date: string,
-  category: string,
-  url: string,
   comments: CommentType[],
   commentsCount: number
 }

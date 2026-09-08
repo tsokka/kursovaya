@@ -3,8 +3,7 @@ import {AuthService} from "../../../core/auth/auth.service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserService} from "../../services/user.service";
-import {UserInfoType} from "../../../../types/user-info.type";
-import {DefaultResponseType} from "../../../../types/default-response.type";
+import {UserInfoType, DefaultResponseType} from "../../../../types";
 
 @Component({
   selector: 'app-header',

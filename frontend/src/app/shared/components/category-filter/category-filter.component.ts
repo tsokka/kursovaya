@@ -1,9 +1,8 @@
 import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {CategoryType} from "../../../../types/category.type";
-import {ActiveParamsType} from "../../../../types/active-params.type";
 import {ActiveParamsUtil} from "../../utils/active-params.util";
+import {CategoryType, ActiveParamsType} from "../../../../types";
 
 @Component({
   selector: 'app-category-filter',

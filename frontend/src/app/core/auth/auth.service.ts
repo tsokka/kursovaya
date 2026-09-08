@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable, Subject, throwError} from "rxjs";
-import {LoginResponseType} from "../../../types/login-response.type";
-import {DefaultResponseType} from "../../../types/default-response.type";
-import {RefreshResponseType} from "../../../types/refresh-response.type";
+import {LoginResponseType, RefreshResponseType, TokensType, DefaultResponseType} from "../../../types";
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +16,11 @@ export class AuthService {
   public isLogged$: Subject<boolean> = new Subject<boolean>();
   private isLogged: boolean = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
     this.isLogged = !!localStorage.getItem(this.accessTokenKey);
   }
 
-  login(email: string, password: string, rememberMe: boolean): Observable<DefaultResponseType | LoginResponseType> {
+  public login(email: string, password: string, rememberMe: boolean): Observable<DefaultResponseType | LoginResponseType> {
     return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'login', {
       email, password, rememberMe
     });
@@ -72,7 +70,7 @@ export class AuthService {
     this.isLogged$.next(false);
   }
 
-  public getTokens(): { accessToken: string | null, refreshToken: string | null } {
+  public getTokens(): TokensType {
     return {
       accessToken: localStorage.getItem(this.accessTokenKey),
       refreshToken: localStorage.getItem(this.refreshTokenKey)
@@ -96,10 +94,6 @@ export class AuthService {
   }
 
   set userName(name: string | null) {
-    if (name) {
-      localStorage.setItem(this.userNameKey, name);
-    } else {
-      localStorage.removeItem(this.userNameKey);
-    }
+    name ? localStorage.setItem(this.userNameKey, name) : localStorage.removeItem(this.userNameKey);
   }
 }

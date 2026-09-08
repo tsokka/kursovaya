@@ -1,17 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ArticleService} from "../../shared/services/article.service";
-import {ArticleDetailType} from "../../../types/article-detail.type";
-import {ArticleType} from "../../../types/article.type";
 import {environment} from "../../../environments/environment";
 import {CommentService} from "../../shared/services/comment.service";
-import {CommentType} from "../../../types/comment.type";
-import {CommentsResponseType} from "../../../types/comments-response.type";
 import {AuthService} from "../../core/auth/auth.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {DefaultResponseType} from "../../../types/default-response.type";
-import {CommentActionType} from "../../../types/comment-action.type";
+import {
+  ArticleType,
+  ArticleDetailType,
+  CommentType,
+  CommentsResponseType,
+  CommentActionType,
+  CommentReactionType,
+  DefaultResponseType
+} from "../../../types";
+
 
 @Component({
   selector: 'app-article',
@@ -29,7 +33,7 @@ export class ArticleComponent implements OnInit {
   commentForm = this.fb.group({
     text: ['', [Validators.required]]
   });
-  userActions: { [commentId: string]: 'like' | 'dislike' } = {};
+  userActions: { [commentId: string]: CommentReactionType } = {};
   shareVkUrl: string = '';
   shareFbUrl: string = '';
 

@@ -1,13 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ArticleService} from "../../shared/services/article.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ArticleType} from "../../../types/article.type";
-import {ActiveParamsType} from "../../../types/active-params.type";
 import {ActiveParamsUtil} from "../../shared/utils/active-params.util";
-import {ArticlesResponseType} from "../../../types/articles-response.type";
-import {AppliedFilterType} from "../../../types/applied-filter.type";
 import {CategoryService} from "../../shared/services/category.service";
-import {CategoryType} from "../../../types/category.type";
+import {ArticleType, ArticlesResponseType, ActiveParamsType, AppliedFilterType, CategoryType} from "../../../types";
 
 @Component({
   selector: 'app-blog',

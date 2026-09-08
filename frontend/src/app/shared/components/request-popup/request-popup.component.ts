@@ -2,7 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {RequestService} from "../../services/request.service";
-import {DefaultResponseType} from "../../../../types/default-response.type";
+import {RequestPopupDataType, DefaultResponseType} from "../../../../types";
 
 @Component({
   selector: 'app-request-popup',
@@ -24,7 +24,7 @@ export class RequestPopupComponent {
   constructor(private fb: FormBuilder,
               private requestService: RequestService,
               private dialogRef: MatDialogRef<RequestPopupComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: { type: 'order' | 'consultation', service?: string }) {
+              @Inject(MAT_DIALOG_DATA) public data: RequestPopupDataType) {
   }
 
   createRequest(): void {

@@ -9,8 +9,7 @@ import {
 import {AuthService} from "./auth.service";
 import {catchError, finalize, Observable, switchMap, throwError} from "rxjs";
 import {Router} from "@angular/router";
-import {DefaultResponseType} from "../../../types/default-response.type";
-import {RefreshResponseType} from "../../../types/refresh-response.type";
+import {RefreshResponseType, DefaultResponseType} from "../../../types";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

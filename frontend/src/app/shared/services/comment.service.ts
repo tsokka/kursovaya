@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
-import {CommentsResponseType} from "../../../types/comments-response.type";
-import {DefaultResponseType} from "../../../types/default-response.type";
-import {CommentActionType} from "../../../types/comment-action.type";
+import {CommentsResponseType, CommentActionType, CommentActionEnumType, DefaultResponseType} from "../../../types";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +25,7 @@ export class CommentService {
     });
   }
 
-  applyAction(commentId: string, action: 'like' | 'dislike' | 'violate'): Observable<DefaultResponseType> {
+  applyAction(commentId: string, action: CommentActionEnumType): Observable<DefaultResponseType> {
     return this.http.post<DefaultResponseType>(environment.api + 'comments/' + commentId + '/apply-action', {
       action: action
     });

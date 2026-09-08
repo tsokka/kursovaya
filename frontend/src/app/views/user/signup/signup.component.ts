@@ -3,9 +3,8 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../../core/auth/auth.service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {LoginResponseType} from "../../../../types/login-response.type";
-import {DefaultResponseType} from "../../../../types/default-response.type";
 import {HttpErrorResponse} from "@angular/common/http";
+import {LoginResponseType, DefaultResponseType} from "../../../../types";
 
 @Component({
   selector: 'app-signup',

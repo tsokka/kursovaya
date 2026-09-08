@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OwlOptions} from "ngx-owl-carousel-o";
 import {MatDialog} from "@angular/material/dialog";
 import {RequestPopupComponent} from "../../shared/components/request-popup/request-popup.component";
-import {ArticleType} from "../../../types/article.type";
+import {ArticleType} from "../../../types";
 import {ArticleService} from "../../shared/services/article.service";
 
 @Component({

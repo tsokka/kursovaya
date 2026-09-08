@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
-import {UserInfoType} from "../../../types/user-info.type";
-import {DefaultResponseType} from "../../../types/default-response.type";
+import {UserInfoType, DefaultResponseType} from "../../../types";
 
 @Injectable({
   providedIn: 'root'

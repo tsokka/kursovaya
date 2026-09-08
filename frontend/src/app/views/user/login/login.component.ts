@@ -3,8 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../../core/auth/auth.service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {LoginResponseType} from "../../../../types/login-response.type";
-import {DefaultResponseType} from "../../../../types/default-response.type";
+import {LoginResponseType, DefaultResponseType} from "../../../../types";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
@@ -13,41 +12,34 @@ import {HttpErrorResponse} from "@angular/common/http";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  loginForm = this.fb.group({
+  protected readonly loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
     rememberMe: [false]
   });
-  showPassword: boolean = false;
+  protected showPassword: boolean = false;
 
-  constructor(private fb: FormBuilder,
-              private authService: AuthService,
-              private _snackBar: MatSnackBar,
-              private router: Router) {
+  constructor(private readonly fb: FormBuilder,
+              private readonly authService: AuthService,
+              private readonly _snackBar: MatSnackBar,
+              private readonly router: Router) {
   }
 
-  login(): void {
+  private _isDefaultResponse(data: unknown): data is DefaultResponseType {
+    return typeof data === 'object' && data !== null && 'error' in data;
+  }
+
+  protected login(): void {
     if (this.loginForm.valid && this.loginForm.value.email && this.loginForm.value.password) {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password, !!this.loginForm.value.rememberMe)
         .subscribe({
           next: (data: DefaultResponseType | LoginResponseType) => {
-            let error: string | null = null;
-            if ((data as DefaultResponseType).error !== undefined) {
-              error = (data as DefaultResponseType).message;
+            if (this._isDefaultResponse(data)) {
+              this._snackBar.open(data.message);
+              throw new Error(data.message);
             }
-
-            const loginResponse = data as LoginResponseType;
-            if (!loginResponse.accessToken || !loginResponse.refreshToken || !loginResponse.userId) {
-              error = 'Ошибка авторизации';
-            }
-
-            if (error) {
-              this._snackBar.open(error);
-              throw new Error(error);
-            }
-
-            this.authService.setTokens(loginResponse.accessToken, loginResponse.refreshToken);
-            this.authService.userId = loginResponse.userId;
+            this.authService.setTokens(data.accessToken, data.refreshToken);
+            this.authService.userId = data.userId;
             this._snackBar.open('Вы успешно авторизовались');
             this.router.navigate(['/']);
           },

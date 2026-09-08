@@ -2,10 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
-import {ArticleType} from "../../../types/article.type";
-import {ArticlesResponseType} from "../../../types/articles-response.type";
-import {ActiveParamsType} from "../../../types/active-params.type";
-import {ArticleDetailType} from "../../../types/article-detail.type";
+import {ArticleType, ArticlesResponseType, ActiveParamsType, ArticleDetailType} from "../../../types";
 
 @Injectable({
   providedIn: 'root'
