@@ -21,84 +21,84 @@ import {
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
-  article!: ArticleDetailType;
-  relatedArticles: ArticleType[] = [];
-  serverStaticPath = environment.serverStaticPath;
-  comments: CommentType[] = [];
-  commentsCount: number = 0;
-  isCommentsLoading: boolean = false;
-  isLogged: boolean = false;
-  commentForm = this.fb.group({
+  protected _article!: ArticleDetailType;
+  protected _relatedArticles: ArticleType[] = [];
+  protected _comments: CommentType[] = [];
+  protected _commentsCount: number = 0;
+  protected _isCommentsLoading: boolean = false;
+  protected _isLogged: boolean = false;
+  protected _shareVkUrl: string = '';
+  protected _shareFbUrl: string = '';
+  protected readonly _serverStaticPath: string = environment.serverStaticPath;
+  protected readonly _commentForm = this.fb.group({
     text: ['', [Validators.required]]
   });
-  userActions: { [commentId: string]: CommentReactionType } = {};
-  shareVkUrl: string = '';
-  shareFbUrl: string = '';
+  private _userActions: { [commentId: string]: CommentReactionType } = {};
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private articleService: ArticleService,
-              private commentService: CommentService,
-              private authService: AuthService,
-              private fb: FormBuilder,
-              private _snackBar: MatSnackBar) {
-    this.isLogged = this.authService.getIsLoggedIn();
+  constructor(private readonly activatedRoute: ActivatedRoute,
+              private readonly articleService: ArticleService,
+              private readonly commentService: CommentService,
+              private readonly authService: AuthService,
+              private readonly fb: FormBuilder,
+              private readonly _snackBar: MatSnackBar) {
+    this._isLogged = this.authService.getIsLoggedIn();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.articleService.getArticle(params['url'])
         .subscribe((data: ArticleDetailType) => {
-          this.article = data;
-          this.comments = data.comments || [];
-          this.commentsCount = data.commentsCount || 0;
-          this.setShareLinks();
-          if (this.isLogged) {
-            this.loadUserActions();
+          this._article = data;
+          this._comments = data.comments || [];
+          this._commentsCount = data.commentsCount || 0;
+          this._setShareLinks();
+          if (this._isLogged) {
+            this._loadUserActions();
           }
         });
 
       this.articleService.getRelatedArticles(params['url'])
         .subscribe((data: ArticleType[]) => {
-          this.relatedArticles = data;
+          this._relatedArticles = data;
         });
     });
   }
 
-  get hasMoreComments(): boolean {
-    return this.comments.length < this.commentsCount;
+  protected get _hasMoreComments(): boolean {
+    return this._comments.length < this._commentsCount;
   }
 
-  loadMoreComments(): void {
-    this.isCommentsLoading = true;
-    this.commentService.getComments(this.comments.length, this.article.id)
+  protected _loadMoreComments(): void {
+    this._isCommentsLoading = true;
+    this.commentService.getComments(this._comments.length, this._article.id)
       .subscribe({
         next: (data: CommentsResponseType) => {
-          this.comments = this.comments.concat(data.comments);
-          this.commentsCount = data.allCount;
-          this.isCommentsLoading = false;
+          this._comments = this._comments.concat(data.comments);
+          this._commentsCount = data.allCount;
+          this._isCommentsLoading = false;
         },
         error: () => {
-          this.isCommentsLoading = false;
+          this._isCommentsLoading = false;
         }
       });
   }
 
-  addComment(): void {
-    if (!this.commentForm.valid || !this.commentForm.value.text) {
+  protected _addComment(): void {
+    if (!this._commentForm.valid || !this._commentForm.value.text) {
       this._snackBar.open('Введите текст комментария');
       return;
     }
 
-    this.commentService.addComment(this.commentForm.value.text, this.article.id)
+    this.commentService.addComment(this._commentForm.value.text, this._article.id)
       .subscribe({
         next: (data: DefaultResponseType) => {
           if (data.error) {
             this._snackBar.open(data.message);
             return;
           }
-          this.commentForm.reset();
+          this._commentForm.reset();
           this._snackBar.open('Комментарий добавлен');
-          this.reloadComments();
+          this._reloadComments();
         },
         error: () => {
           this._snackBar.open('Ошибка при добавлении комментария');
@@ -106,39 +106,39 @@ export class ArticleComponent implements OnInit {
       });
   }
 
-  private reloadComments(): void {
-    this.commentService.getComments(0, this.article.id)
+  private _reloadComments(): void {
+    this.commentService.getComments(0, this._article.id)
       .subscribe((data: CommentsResponseType) => {
-        this.comments = data.comments;
-        this.commentsCount = data.allCount;
+        this._comments = data.comments;
+        this._commentsCount = data.allCount;
       });
   }
 
-  private loadUserActions(): void {
-    this.commentService.getArticleCommentActions(this.article.id)
+  private _loadUserActions(): void {
+    this.commentService.getArticleCommentActions(this._article.id)
       .subscribe((data: CommentActionType[] | DefaultResponseType) => {
         if (TypeGuardUtil.isDefaultResponse(data)) {
           return;
         }
 
-        this.userActions = {};
+        this._userActions = {};
         data.forEach(item => {
-          this.userActions[item.comment] = item.action;
+          this._userActions[item.comment] = item.action;
         });
       });
   }
 
-  isActionActive(commentId: string, action: CommentReactionType): boolean {
-    return this.userActions[commentId] === action;
+  protected _isActionActive(commentId: string, action: CommentReactionType): boolean {
+    return this._userActions[commentId] === action;
   }
 
-  applyAction(comment: CommentType, action: CommentReactionType): void {
-    if (!this.isLogged) {
+  protected _applyAction(comment: CommentType, action: CommentReactionType): void {
+    if (!this._isLogged) {
       this._snackBar.open('Чтобы голосовать, войдите в личный кабинет');
       return;
     }
 
-    const previous = this.userActions[comment.id];
+    const previous = this._userActions[comment.id];
 
     this.commentService.applyAction(comment.id, action)
       .subscribe({
@@ -149,10 +149,10 @@ export class ArticleComponent implements OnInit {
           }
 
           if (previous === action) {
-            delete this.userActions[comment.id];
+            delete this._userActions[comment.id];
             action === 'like' ? comment.likesCount-- : comment.dislikesCount--;
           } else {
-            this.userActions[comment.id] = action;
+            this._userActions[comment.id] = action;
             action === 'like' ? comment.likesCount++ : comment.dislikesCount++;
             if (previous === 'like') {
               comment.likesCount--;
@@ -169,8 +169,8 @@ export class ArticleComponent implements OnInit {
       });
   }
 
-  applyViolate(comment: CommentType): void {
-    if (!this.isLogged) {
+  protected _applyViolate(comment: CommentType): void {
+    if (!this._isLogged) {
       this._snackBar.open('Чтобы пожаловаться, войдите в личный кабинет');
       return;
     }
@@ -186,11 +186,11 @@ export class ArticleComponent implements OnInit {
       });
   }
 
-  setShareLinks(): void {
+  private _setShareLinks(): void {
     const pageUrl = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent(this.article.title);
+    const title = encodeURIComponent(this._article.title);
 
-    this.shareVkUrl = `https://vk.com/share.php?url=${pageUrl}&title=${title}`;
-    this.shareFbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+    this._shareVkUrl = `https://vk.com/share.php?url=${pageUrl}&title=${title}`;
+    this._shareFbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
   }
 }

@@ -9,11 +9,11 @@ import {ViewportScroller} from "@angular/common";
 })
 export class PolicyComponent implements AfterViewInit {
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private viewportScroller: ViewportScroller) {
+  constructor(private readonly activatedRoute: ActivatedRoute,
+              private readonly viewportScroller: ViewportScroller) {
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     const fragment = this.activatedRoute.snapshot.fragment;
     if (fragment) {
       document.fonts.ready.then(() => {

@@ -13,24 +13,24 @@ import {TypeGuardUtil} from "../../../shared";
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  signupForm = this.fb.group({
+  protected readonly _signupForm = this.fb.group({
     name: ['', [Validators.required, Validators.pattern(/^([А-ЯЁ][а-яё]+)(\s[А-ЯЁ][а-яё]+)*$/)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-ZА-Я])(?=.*\d).{8,}$/)]],
     agree: [false, [Validators.requiredTrue]]
   });
-  showPassword: boolean = false;
+  protected _showPassword: boolean = false;
 
-  constructor(private fb: FormBuilder,
-              private authService: AuthService,
-              private _snackBar: MatSnackBar,
-              private router: Router) {
+  constructor(private readonly fb: FormBuilder,
+              private readonly authService: AuthService,
+              private readonly _snackBar: MatSnackBar,
+              private readonly router: Router) {
   }
 
-  signup(): void {
-    if (this.signupForm.valid && this.signupForm.value.name && this.signupForm.value.email
-      && this.signupForm.value.password) {
-      this.authService.signup(this.signupForm.value.name, this.signupForm.value.email, this.signupForm.value.password)
+  protected _signup(): void {
+    if (this._signupForm.valid && this._signupForm.value.name && this._signupForm.value.email
+      && this._signupForm.value.password) {
+      this.authService.signup(this._signupForm.value.name, this._signupForm.value.email, this._signupForm.value.password)
         .subscribe({
           next: (data: DefaultResponseType | LoginResponseType) => {
             if (TypeGuardUtil.isDefaultResponse(data)) {

@@ -7,7 +7,7 @@ import {ViewportScroller} from "@angular/common";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private viewportScroller: ViewportScroller) {
+  constructor(private readonly viewportScroller: ViewportScroller) {
     this.viewportScroller.setOffset([0, 40]);
     this.viewportScroller.setHistoryScrollRestoration('manual');
   }

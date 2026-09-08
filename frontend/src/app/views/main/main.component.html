@@ -1,8 +1,8 @@
 <section class="offers">
   <div class="container">
     <div class="offers-slider">
-      <owl-carousel-o [options]="offersOptions" #offersCarousel>
-        <ng-template carouselSlide *ngFor="let offer of offers">
+      <owl-carousel-o [options]="_offersOptions" #offersCarousel>
+        <ng-template carouselSlide *ngFor="let offer of _offers">
           <div class="offer" [class.offer-no-text]="!offer.text">
             <div class="offer-image">
               <img [src]="offer.image" alt="">
@@ -14,7 +14,7 @@
                 {{ offer.titleStart }}<span>{{ offer.titleAccent }}</span>{{ offer.titleEnd }}
               </div>
               <div class="offer-text" *ngIf="offer.text">{{ offer.text }}</div>
-              <button class="button offer-button" (click)="openOrderPopup(offer.service)">Подробнее</button>
+              <button class="button offer-button" (click)="_openOrderPopup(offer.service)">Подробнее</button>
             </div>
           </div>
         </ng-template>
@@ -34,7 +34,7 @@
   <div class="container">
     <h2 class="services-title">Услуги, которые мы предлагаем</h2>
     <div class="services-list">
-      <div class="service" *ngFor="let service of services">
+      <div class="service" *ngFor="let service of _services">
         <div class="service-image">
           <img [src]="service.image" [alt]="service.title">
         </div>
@@ -42,7 +42,7 @@
         <div class="service-text">{{ service.text }}</div>
         <div class="service-bottom">
           <div class="service-price">От {{ service.price | number }}₽</div>
-          <button class="button service-button" (click)="openOrderPopup(service.title)">Подробнее</button>
+          <button class="button service-button" (click)="_openOrderPopup(service.title)">Подробнее</button>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@
           всё это время смогла выйти в ТОП-10 агентств, предлагающих услуги продвижения в сети.</p>
         <h3 class="about-subtitle">Наши преимущества</h3>
         <div class="about-advantages">
-          <div class="advantage" *ngFor="let advantage of advantages; let i = index">
+          <div class="advantage" *ngFor="let advantage of _advantages; let i = index">
             <div class="advantage-number"><span>{{ i + 1 }}</span></div>
             <div class="advantage-content">
               <span class="advantage-accent">{{ advantage.title }}</span> {{ advantage.text }}
@@ -80,7 +80,7 @@
   <div class="container">
     <h2 class="articles-title">Популярные статьи из блога</h2>
     <div class="articles-list">
-      <app-article-card *ngFor="let article of articles" [article]="article"></app-article-card>
+      <app-article-card *ngFor="let article of _articles" [article]="article"></app-article-card>
     </div>
     <a routerLink="/blog" class="articles-link">
       Перейти в блог
@@ -93,8 +93,8 @@
   <div class="container">
     <h2 class="reviews-title">Отзывы о нашей работе</h2>
     <div class="reviews-slider">
-      <owl-carousel-o [options]="reviewsOptions" #reviewsCarousel>
-        <ng-template carouselSlide *ngFor="let review of reviews">
+      <owl-carousel-o [options]="_reviewsOptions" #reviewsCarousel>
+        <ng-template carouselSlide *ngFor="let review of _reviews">
           <div class="review">
             <div class="review-head">
               <div class="review-image">

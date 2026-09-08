@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {OwlOptions} from "ngx-owl-carousel-o";
 import {MatDialog} from "@angular/material/dialog";
-import {RequestPopupComponent} from "../../shared/components/request-popup/request-popup.component";
+import {RequestPopupComponent, ArticleService} from "../../shared";
 import {ArticleType} from "../../../types";
-import {ArticleService} from "../../shared/services/article.service";
 
 @Component({
   selector: 'app-main',
@@ -11,9 +10,9 @@ import {ArticleService} from "../../shared/services/article.service";
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  articles: ArticleType[] = [];
+  protected _articles: ArticleType[] = [];
 
-  offers = [
+  protected readonly _offers = [
     {
       label: 'Предложение месяца',
       titleStart: 'Продвижение в Instagram для вашего бизнеса ',
@@ -43,7 +42,7 @@ export class MainComponent implements OnInit {
     }
   ];
 
-  services = [
+  protected readonly _services = [
     {
       title: 'Создание сайтов',
       text: 'В краткие сроки мы создадим качественный и самое главное продающий сайт для продвижения Вашего бизнеса!',
@@ -70,7 +69,7 @@ export class MainComponent implements OnInit {
     }
   ];
 
-  advantages = [
+  protected readonly _advantages = [
     {
       title: 'Мастерски вовлекаем аудиторию в процесс.',
       text: 'Мы увеличиваем процент вовлечённости за короткий промежуток времени.'
@@ -89,7 +88,7 @@ export class MainComponent implements OnInit {
     }
   ];
 
-  reviews = [
+  protected readonly _reviews = [
     {
       name: 'Станислав',
       image: '/assets/images/page/review1.webp',
@@ -107,7 +106,7 @@ export class MainComponent implements OnInit {
     }
   ];
 
-  offersOptions: OwlOptions = {
+  protected readonly _offersOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
     touchDrag: true,
@@ -118,7 +117,7 @@ export class MainComponent implements OnInit {
     items: 1
   };
 
-  reviewsOptions: OwlOptions = {
+  protected readonly _reviewsOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
     touchDrag: true,
@@ -135,18 +134,18 @@ export class MainComponent implements OnInit {
     }
   };
 
-  constructor(private dialog: MatDialog,
-              private articleService: ArticleService) {
+  constructor(private readonly dialog: MatDialog,
+              private readonly articleService: ArticleService) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.articleService.getTopArticles()
       .subscribe((data: ArticleType[]) => {
-        this.articles = data;
+        this._articles = data;
       });
   }
 
-  openOrderPopup(service: string): void {
+  protected _openOrderPopup(service: string): void {
     this.dialog.open(RequestPopupComponent, {
       data: {type: 'order', service: service},
       panelClass: 'request-popup-panel'

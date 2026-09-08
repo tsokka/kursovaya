@@ -9,10 +9,10 @@ import {DefaultResponseType, RequestType} from "../../../types";
 })
 export class RequestService {
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
   }
 
-  createRequest(request: RequestType): Observable<DefaultResponseType> {
+  public createRequest(request: RequestType): Observable<DefaultResponseType> {
     return this.http.post<DefaultResponseType>(environment.api + 'requests', request);
   }
 }

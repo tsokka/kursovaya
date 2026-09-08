@@ -1,7 +1,7 @@
 import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
-import {CategoryService} from "../../services/category.service";
+import {CategoryService} from "../../services";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ActiveParamsUtil} from "../../utils/active-params.util";
+import {ActiveParamsUtil} from "../../utils";
 import {CategoryType, ActiveParamsType} from "../../../../types";
 
 @Component({
@@ -10,51 +10,47 @@ import {CategoryType, ActiveParamsType} from "../../../../types";
   styleUrls: ['./category-filter.component.scss']
 })
 export class CategoryFilterComponent implements OnInit {
-  categories: CategoryType[] = [];
-  activeParams: ActiveParamsType = {categories: []};
-  open: boolean = false;
+  protected _categories: CategoryType[] = [];
+  protected _open: boolean = false;
+  private _activeParams: ActiveParamsType = {categories: []};
 
-  constructor(private categoryService: CategoryService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private elementRef: ElementRef) {
+  constructor(private readonly categoryService: CategoryService,
+              private readonly activatedRoute: ActivatedRoute,
+              private readonly router: Router,
+              private readonly elementRef: ElementRef) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.categoryService.getCategories()
       .subscribe((data: CategoryType[]) => {
-        this.categories = data;
+        this._categories = data;
       });
 
     this.activatedRoute.queryParams.subscribe(params => {
-      this.activeParams = ActiveParamsUtil.processParams(params);
+      this._activeParams = ActiveParamsUtil.processParams(params);
     });
   }
 
   @HostListener('document:click', ['$event'])
-  onOutsideClick(event: MouseEvent): void {
-    if (this.open && !this.elementRef.nativeElement.contains(event.target)) {
-      this.open = false;
+  public onOutsideClick(event: MouseEvent): void {
+    if (this._open && !this.elementRef.nativeElement.contains(event.target)) {
+      this._open = false;
     }
   }
 
-  toggle(): void {
-    this.open = !this.open;
+  protected _toggle(): void {
+    this._open = !this._open;
   }
 
-  isActive(url: string): boolean {
-    return !!this.activeParams.categories && this.activeParams.categories.some(item => item === url);
+  protected _isActive(url: string): boolean {
+    return !!this._activeParams.categories && this._activeParams.categories.some(item => item === url);
   }
 
-  updateFilterParam(url: string): void {
-    const currentCategories = this.activeParams.categories ? [...this.activeParams.categories] : [];
+  protected _updateFilterParam(url: string): void {
+    const currentCategories = this._activeParams.categories ? [...this._activeParams.categories] : [];
     const existingIndex = currentCategories.findIndex(item => item === url);
 
-    if (existingIndex !== -1) {
-      currentCategories.splice(existingIndex, 1);
-    } else {
-      currentCategories.push(url);
-    }
+    existingIndex !== -1 ? currentCategories.splice(existingIndex, 1) : currentCategories.push(url);
 
     this.router.navigate(['/blog'], {
       queryParams: {

@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs";
+import {CanActivate, Router, UrlTree} from "@angular/router";
 import {AuthService} from "./auth.service";
 
 @Injectable({
@@ -8,14 +7,11 @@ import {AuthService} from "./auth.service";
 })
 export class AuthForwardGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private readonly authService: AuthService,
+              private readonly router: Router) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.getIsLoggedIn()) {
-      this.router.navigate(['/']);
-      return false;
-    }
-    return true;
+  public canActivate(): boolean | UrlTree {
+    return this.authService.getIsLoggedIn() ? this.router.createUrlTree(['/']) : true;
   }
 }

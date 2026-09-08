@@ -2,30 +2,30 @@
   <div class="auth">
     <div class="auth-form">
       <h1 class="auth-title">Регистрация на сайте</h1>
-      <form [formGroup]="signupForm" class="auth-fields">
+      <form [formGroup]="_signupForm" class="auth-fields">
         <div class="auth-field">
           <input type="text" class="input" formControlName="name" placeholder="Ваше имя">
           <div class="auth-error"
-               *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
+               *ngIf="_signupForm.get('name')?.invalid && _signupForm.get('name')?.touched">
             Имя должно состоять из русских букв и начинаться с заглавной
           </div>
         </div>
         <div class="auth-field">
           <input type="text" class="input" formControlName="email" placeholder="Электронная почта">
           <div class="auth-error error"
-               *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+               *ngIf="_signupForm.get('email')?.invalid && _signupForm.get('email')?.touched">
             Введите корректный email
           </div>
         </div>
         <div class="auth-field auth-field-password">
-          <input [type]="showPassword ? 'text' : 'password'" class="input" formControlName="password"
+          <input [type]="_showPassword ? 'text' : 'password'" class="input" formControlName="password"
                  placeholder="Пароль">
           <img class="auth-eye"
-               [src]="showPassword ? '/assets/images/icons/eye-off.svg' : '/assets/images/icons/eye.svg'"
+               [src]="_showPassword ? '/assets/images/icons/eye-off.svg' : '/assets/images/icons/eye.svg'"
                alt="Показать пароль"
-               (click)="showPassword = !showPassword">
+               (click)="_showPassword = !_showPassword">
           <div class="auth-error error"
-               *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+               *ngIf="_signupForm.get('password')?.invalid && _signupForm.get('password')?.touched">
             Не менее 8 символов, минимум одна заглавная буква и одна цифра
           </div>
         </div>
@@ -38,8 +38,8 @@
           </label>
         </div>
         <button type="button" class="button auth-button"
-                [disabled]="!signupForm.valid"
-                (click)="signup()">Зарегистрироваться
+                [disabled]="!_signupForm.valid"
+                (click)="_signup()">Зарегистрироваться
         </button>
       </form>
       <div class="auth-bottom">

@@ -9,10 +9,10 @@ import {UserInfoType, DefaultResponseType} from "../../../types";
 })
 export class UserService {
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
   }
 
-  getUserInfo(): Observable<UserInfoType | DefaultResponseType> {
+  public getUserInfo(): Observable<UserInfoType | DefaultResponseType> {
     return this.http.get<UserInfoType | DefaultResponseType>(environment.api + 'users');
   }
 }

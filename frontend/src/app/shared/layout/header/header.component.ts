@@ -12,55 +12,63 @@ import {TypeGuardUtil} from "../../utils";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  isLogged: boolean = false;
-  userName: string | null = null;
-  isMenuOpen: boolean = false;
+  protected _isLogged: boolean = false;
+  protected _userName: string | null = null;
+  protected _isMenuOpen: boolean = false;
 
-  constructor(private authService: AuthService,
-              private userService: UserService,
-              private _snackBar: MatSnackBar,
-              private router: Router,
-              private elementRef: ElementRef) {
-    this.isLogged = this.authService.getIsLoggedIn();
+  constructor(private readonly authService: AuthService,
+              private readonly userService: UserService,
+              private readonly _snackBar: MatSnackBar,
+              private readonly router: Router,
+              private readonly elementRef: ElementRef) {
+    this._isLogged = this.authService.getIsLoggedIn();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.authService.isLogged$.subscribe((isLoggedIn: boolean) => {
-      this.isLogged = isLoggedIn;
-      if (isLoggedIn) {
-        this.loadUserName();
-      } else {
-        this.userName = null;
-      }
+      this._isLogged = isLoggedIn;
+      isLoggedIn ? this._loadUserName() : this._userName = null;
     });
 
-    if (this.isLogged) {
-      this.loadUserName();
+    if (this._isLogged) {
+      this._loadUserName();
     }
   }
 
   @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
-    if (!this.isMenuOpen) {
+  public onDocumentClick(event: MouseEvent): void {
+    if (!this._isMenuOpen) {
       return;
     }
     if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.isMenuOpen = false;
+      this._isMenuOpen = false;
     }
   }
 
-  toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
+  protected _toggleMenu(): void {
+    this._isMenuOpen = !this._isMenuOpen;
   }
 
-  closeMenu(): void {
-    this.isMenuOpen = false;
+  protected _closeMenu(): void {
+    this._isMenuOpen = false;
   }
 
-  private loadUserName(): void {
+  protected _logout(): void {
+    this.authService.logout()
+      .subscribe({
+        next: () => {
+          this._doLogout();
+        },
+        error: () => {
+          this._doLogout();
+        }
+      });
+  }
+
+  private _loadUserName(): void {
     const savedName = this.authService.userName;
     if (savedName) {
-      this.userName = savedName;
+      this._userName = savedName;
       return;
     }
 
@@ -70,24 +78,12 @@ export class HeaderComponent implements OnInit {
           return;
         }
 
-        this.userName = data.name;
+        this._userName = data.name;
         this.authService.userName = data.name;
       });
   }
 
-  logout(): void {
-    this.authService.logout()
-      .subscribe({
-        next: () => {
-          this.doLogout();
-        },
-        error: () => {
-          this.doLogout();
-        }
-      });
-  }
-
-  private doLogout(): void {
+  private _doLogout(): void {
     this.authService.removeTokens();
     this.authService.userId = null;
     this.authService.userName = null;

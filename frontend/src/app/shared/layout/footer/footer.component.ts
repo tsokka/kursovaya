@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {RequestPopupComponent} from "../../components/request-popup/request-popup.component";
+import {RequestPopupComponent} from "../../components";
 
 @Component({
   selector: 'app-footer',
@@ -9,10 +9,10 @@ import {RequestPopupComponent} from "../../components/request-popup/request-popu
 })
 export class FooterComponent {
 
-  constructor(private dialog: MatDialog) {
+  constructor(private readonly dialog: MatDialog) {
   }
 
-  openConsultationPopup(): void {
+  protected _openConsultationPopup(): void {
     this.dialog.open(RequestPopupComponent, {
       data: {type: 'consultation'},
       panelClass: 'request-popup-panel'

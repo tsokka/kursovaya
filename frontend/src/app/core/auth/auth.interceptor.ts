@@ -15,10 +15,11 @@ import {TypeGuardUtil} from "../../shared";
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private readonly authService: AuthService,
+              private readonly router: Router) {
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const tokens = this.authService.getTokens();
 
     if (tokens && tokens.accessToken) {
@@ -30,7 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
         .pipe(
           catchError((error) => {
             if (error.status === 401 && !authReq.url.includes('/login') && !authReq.url.includes('/refresh')) {
-              return this.handle401Error(authReq, next);
+              return this._handle401Error(authReq, next);
             }
             return throwError(() => error);
           })
@@ -40,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req);
   }
 
-  handle401Error(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  private _handle401Error(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.authService.refresh()
       .pipe(
         switchMap((result: DefaultResponseType | RefreshResponseType) => {

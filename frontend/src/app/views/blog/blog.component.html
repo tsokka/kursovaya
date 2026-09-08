@@ -1,41 +1,41 @@
 <div class="container">
   <div class="blog">
-    <h1 class="blog-title" [class.blog-title-no-filters]="appliedFilters.length === 0">Блог</h1>
+    <h1 class="blog-title" [class.blog-title-no-filters]="_appliedFilters.length === 0">Блог</h1>
 
     <div class="blog-head">
       <div class="blog-filters">
-        <div class="blog-filter" *ngFor="let filter of appliedFilters">
+        <div class="blog-filter" *ngFor="let filter of _appliedFilters">
           <span>{{ filter.name }}</span>
-          <img src="/assets/images/icons/close-small.svg" alt="" (click)="removeAppliedFilter(filter)">
+          <img src="/assets/images/icons/close-small.svg" alt="" (click)="_removeAppliedFilter(filter)">
         </div>
       </div>
       <app-category-filter></app-category-filter>
     </div>
 
     <div class="blog-list">
-      <app-article-card *ngFor="let article of articles" [article]="article"></app-article-card>
+      <app-article-card *ngFor="let article of _articles" [article]="article"></app-article-card>
     </div>
 
-    <div class="pagination" *ngIf="pages.length > 1">
+    <div class="pagination" *ngIf="_pages.length > 1">
       <div class="pagination-arrow"
-           [class.disabled]="activeParams.page === 1"
-           (click)="openPrevPage()">
-        <img [src]="activeParams.page === 1
+           [class.disabled]="_activeParams.page === 1"
+           (click)="_openPrevPage()">
+        <img [src]="_activeParams.page === 1
               ? '/assets/images/icons/pagination-left-disabled.svg'
               : '/assets/images/icons/pagination-left.svg'" alt="">
       </div>
-      <ng-container *ngFor="let page of visiblePages">
+      <ng-container *ngFor="let page of _visiblePages">
         <div class="pagination-dots" *ngIf="page === null">…</div>
         <div class="pagination-page"
              *ngIf="page !== null"
-             [class.active]="activeParams.page === page"
-             (click)="openPage(page!)">{{ page }}
+             [class.active]="_activeParams.page === page"
+             (click)="_openPage(page!)">{{ page }}
         </div>
       </ng-container>
       <div class="pagination-arrow"
-           [class.disabled]="activeParams.page === pages.length"
-           (click)="openNextPage()">
-        <img [src]="activeParams.page === pages.length
+           [class.disabled]="_activeParams.page === _pages.length"
+           (click)="_openNextPage()">
+        <img [src]="_activeParams.page === _pages.length
               ? '/assets/images/icons/pagination-right-disabled.svg'
               : '/assets/images/icons/pagination-right.svg'" alt="">
       </div>

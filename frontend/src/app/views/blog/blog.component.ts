@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ArticleService} from "../../shared/services/article.service";
+import {ArticleService, ActiveParamsUtil, CategoryService} from "../../shared";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ActiveParamsUtil} from "../../shared/utils/active-params.util";
-import {CategoryService} from "../../shared/services/category.service";
 import {ArticleType, ArticlesResponseType, ActiveParamsType, AppliedFilterType, CategoryType} from "../../../types";
 
 @Component({
@@ -11,63 +9,63 @@ import {ArticleType, ArticlesResponseType, ActiveParamsType, AppliedFilterType, 
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
-  articles: ArticleType[] = [];
-  categories: CategoryType[] = [];
-  appliedFilters: AppliedFilterType[] = [];
-  activeParams: ActiveParamsType = {categories: []};
-  pages: number[] = [];
-  visiblePages: (number | null)[] = [];
+  protected _articles: ArticleType[] = [];
+  protected _appliedFilters: AppliedFilterType[] = [];
+  protected _activeParams: ActiveParamsType = {categories: []};
+  protected _pages: number[] = [];
+  protected _visiblePages: (number | null)[] = [];
+  private _categories: CategoryType[] = [];
 
-  constructor(private articleService: ArticleService,
-              private categoryService: CategoryService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router) {
+  constructor(private readonly articleService: ArticleService,
+              private readonly categoryService: CategoryService,
+              private readonly activatedRoute: ActivatedRoute,
+              private readonly router: Router) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.categoryService.getCategories()
       .subscribe((data: CategoryType[]) => {
-        this.categories = data;
+        this._categories = data;
 
         this.activatedRoute.queryParams.subscribe(params => {
-          this.activeParams = ActiveParamsUtil.processParams(params);
-          if (!this.activeParams.page) {
-            this.activeParams.page = 1;
+          this._activeParams = ActiveParamsUtil.processParams(params);
+          if (!this._activeParams.page) {
+            this._activeParams.page = 1;
           }
 
-          this.appliedFilters = [];
-          this.activeParams.categories?.forEach(url => {
-            const foundCategory = this.categories.find(category => category.url === url);
+          this._appliedFilters = [];
+          this._activeParams.categories?.forEach(url => {
+            const foundCategory = this._categories.find(category => category.url === url);
             if (foundCategory) {
-              this.appliedFilters.push({name: foundCategory.name, urlParam: foundCategory.url});
+              this._appliedFilters.push({name: foundCategory.name, urlParam: foundCategory.url});
             }
           });
 
-          this.getArticles();
+          this._getArticles();
         });
       });
   }
 
-  getArticles(): void {
-    this.articleService.getArticles(this.activeParams)
+  private _getArticles(): void {
+    this.articleService.getArticles(this._activeParams)
       .subscribe((data: ArticlesResponseType) => {
-        if (this.activeParams.page && this.activeParams.page > data.pages && data.pages > 0) {
-          this.openPage(1);
+        if (this._activeParams.page && this._activeParams.page > data.pages && data.pages > 0) {
+          this._openPage(1);
           return;
         }
 
-        this.pages = [];
+        this._pages = [];
         for (let i = 1; i <= data.pages; i++) {
-          this.pages.push(i);
+          this._pages.push(i);
         }
-        this.articles = data.items;
-        this.updateVisiblePages();
+        this._articles = data.items;
+        this._updateVisiblePages();
       });
   }
 
-  private updateVisiblePages(): void {
-    const total = this.pages.length;
-    const current = this.activeParams.page || 1;
+  private _updateVisiblePages(): void {
+    const total = this._pages.length;
+    const current = this._activeParams.page || 1;
     const from = Math.max(1, current - 1);
     const to = Math.min(total, current + 1);
     const result: (number | null)[] = [];
@@ -84,11 +82,11 @@ export class BlogComponent implements OnInit {
       result.push(null);
     }
 
-    this.visiblePages = result;
+    this._visiblePages = result;
   }
 
-  removeAppliedFilter(appliedFilter: AppliedFilterType): void {
-    const currentCategories = (this.activeParams.categories || []).filter(item => item !== appliedFilter.urlParam);
+  protected _removeAppliedFilter(appliedFilter: AppliedFilterType): void {
+    const currentCategories = (this._activeParams.categories || []).filter(item => item !== appliedFilter.urlParam);
     this.router.navigate(['/blog'], {
       queryParams: {
         categories: currentCategories,
@@ -97,24 +95,24 @@ export class BlogComponent implements OnInit {
     });
   }
 
-  openPage(page: number): void {
+  protected _openPage(page: number): void {
     this.router.navigate(['/blog'], {
       queryParams: {
-        categories: this.activeParams.categories || [],
+        categories: this._activeParams.categories || [],
         page: page
       }
     });
   }
 
-  openPrevPage(): void {
-    if (this.activeParams.page && this.activeParams.page > 1) {
-      this.openPage(this.activeParams.page - 1);
+  protected _openPrevPage(): void {
+    if (this._activeParams.page && this._activeParams.page > 1) {
+      this._openPage(this._activeParams.page - 1);
     }
   }
 
-  openNextPage(): void {
-    if (this.activeParams.page && this.activeParams.page < this.pages.length) {
-      this.openPage(this.activeParams.page + 1);
+  protected _openNextPage(): void {
+    if (this._activeParams.page && this._activeParams.page < this._pages.length) {
+      this._openPage(this._activeParams.page + 1);
     }
   }
 }

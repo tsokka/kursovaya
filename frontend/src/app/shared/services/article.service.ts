@@ -9,14 +9,14 @@ import {ArticleType, ArticlesResponseType, ActiveParamsType, ArticleDetailType} 
 })
 export class ArticleService {
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
   }
 
-  getTopArticles(): Observable<ArticleType[]> {
+  public getTopArticles(): Observable<ArticleType[]> {
     return this.http.get<ArticleType[]>(environment.api + 'articles/top');
   }
 
-  getArticles(params: ActiveParamsType): Observable<ArticlesResponseType> {
+  public getArticles(params: ActiveParamsType): Observable<ArticlesResponseType> {
     let httpParams = new HttpParams();
 
     if (params.categories) {
@@ -32,11 +32,11 @@ export class ArticleService {
     return this.http.get<ArticlesResponseType>(environment.api + 'articles', {params: httpParams});
   }
 
-  getArticle(url: string): Observable<ArticleDetailType> {
+  public getArticle(url: string): Observable<ArticleDetailType> {
     return this.http.get<ArticleDetailType>(environment.api + 'articles/' + url);
   }
 
-  getRelatedArticles(url: string): Observable<ArticleType[]> {
+  public getRelatedArticles(url: string): Observable<ArticleType[]> {
     return this.http.get<ArticleType[]>(environment.api + 'articles/related/' + url);
   }
 }

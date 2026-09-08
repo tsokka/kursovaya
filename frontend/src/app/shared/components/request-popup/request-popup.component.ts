@@ -10,64 +10,60 @@ import {RequestPopupDataType, DefaultResponseType} from "../../../../types";
   styleUrls: ['./request-popup.component.scss']
 })
 export class RequestPopupComponent {
-  isSuccess: boolean = false;
-  hasError: boolean = false;
+  protected _isSuccess: boolean = false;
+  protected _hasError: boolean = false;
+  protected _serviceOpen: boolean = false;
+  protected readonly _serviceOptions: string[] = ['Создание сайтов', 'Продвижение', 'Реклама', 'Копирайтинг'];
 
-  requestForm = this.fb.group({
+  protected readonly _requestForm = this.fb.group({
     service: [this.data.service || ''],
     name: ['', [Validators.required]],
     phone: ['', [Validators.required, Validators.minLength(10)]]
   });
-  serviceOptions: string[] = ['Создание сайтов', 'Продвижение', 'Реклама', 'Копирайтинг'];
-  serviceOpen: boolean = false;
 
-  constructor(private fb: FormBuilder,
-              private requestService: RequestService,
-              private dialogRef: MatDialogRef<RequestPopupComponent>,
+  constructor(private readonly fb: FormBuilder,
+              private readonly requestService: RequestService,
+              private readonly dialogRef: MatDialogRef<RequestPopupComponent>,
               @Inject(MAT_DIALOG_DATA) public data: RequestPopupDataType) {
   }
 
-  createRequest(): void {
-    if (!this.requestForm.valid || !this.requestForm.value.name || !this.requestForm.value.phone) {
+  protected _createRequest(): void {
+    if (!this._requestForm.valid || !this._requestForm.value.name || !this._requestForm.value.phone) {
       return;
     }
 
-    this.hasError = false;
+    this._hasError = false;
 
     this.requestService.createRequest({
-      name: this.requestForm.value.name,
-      phone: this.requestForm.value.phone,
+      name: this._requestForm.value.name,
+      phone: this._requestForm.value.phone,
       type: this.data.type,
-      service: this.data.type === 'order' ? (this.requestForm.value.service || '') : undefined
+      service: this.data.type === 'order' ? (this._requestForm.value.service || '') : undefined
     })
       .subscribe({
         next: (data: DefaultResponseType) => {
           if (data.error) {
-            this.hasError = true;
+            this._hasError = true;
             return;
           }
-          this.isSuccess = true;
+          this._isSuccess = true;
         },
         error: () => {
-          this.hasError = true;
+          this._hasError = true;
         }
       });
   }
 
-  closePopup(): void {
+  protected _closePopup(): void {
     this.dialogRef.close();
   }
 
-  toggleServices(): void {
-    this.serviceOpen = !this.serviceOpen;
+  protected _toggleServices(): void {
+    this._serviceOpen = !this._serviceOpen;
   }
 
-  selectService(service: string): void {
-    this.requestForm.get('service')?.setValue(service);
-    this.serviceOpen = false;
-  }
-
-  closeServices(): void {
-    this.serviceOpen = false;
+  protected _selectService(service: string): void {
+    this._requestForm.get('service')?.setValue(service);
+    this._serviceOpen = false;
   }
 }

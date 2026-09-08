@@ -4,35 +4,35 @@
       <img src="/assets/images/logo.svg" alt="АйтиШторм">
     </a>
 
-    <nav class="header-menu" [class.header-menu-open]="isMenuOpen">
+    <nav class="header-menu" [class.header-menu-open]="_isMenuOpen">
       <ul>
-        <li><a routerLink="/" fragment="services" (click)="closeMenu()">Услуги</a></li>
-        <li><a routerLink="/" fragment="about" (click)="closeMenu()">О нас</a></li>
-        <li><a routerLink="/blog" routerLinkActive="active" (click)="closeMenu()">Статьи</a></li>
-        <li><a routerLink="/" fragment="reviews" (click)="closeMenu()">Отзывы</a></li>
-        <li><a routerLink="/" fragment="contacts" (click)="closeMenu()">Контакты</a></li>
+        <li><a routerLink="/" fragment="services" (click)="_closeMenu()">Услуги</a></li>
+        <li><a routerLink="/" fragment="about" (click)="_closeMenu()">О нас</a></li>
+        <li><a routerLink="/blog" routerLinkActive="active" (click)="_closeMenu()">Статьи</a></li>
+        <li><a routerLink="/" fragment="reviews" (click)="_closeMenu()">Отзывы</a></li>
+        <li><a routerLink="/" fragment="contacts" (click)="_closeMenu()">Контакты</a></li>
         <li class="header-menu-phone">
-          <a href="tel:+74993431334" (click)="closeMenu()">+7 (499) 343-13-34</a>
+          <a href="tel:+74993431334" (click)="_closeMenu()">+7 (499) 343-13-34</a>
         </li>
       </ul>
     </nav>
 
     <a href="tel:+74993431334" class="header-phone">+7 (499) 343-13-34</a>
 
-    <a routerLink="/login" class="header-login" *ngIf="!isLogged">
+    <a routerLink="/login" class="header-login" *ngIf="!_isLogged">
       <img src="/assets/images/icons/user.svg" alt="Личный кабинет">
       <span>Войти</span>
     </a>
-    <a class="header-login" *ngIf="isLogged" [matMenuTriggerFor]="userMenu">
+    <a class="header-login" *ngIf="_isLogged" [matMenuTriggerFor]="userMenu">
       <img src="/assets/images/icons/user.svg" alt="Личный кабинет">
-      <span>Привет, {{ userName }}!</span>
+      <span>Привет, {{ _userName }}!</span>
     </a>
     <mat-menu #userMenu="matMenu" class="user-menu" xPosition="before">
-      <button mat-menu-item (click)="logout()">Выйти</button>
+      <button mat-menu-item (click)="_logout()">Выйти</button>
     </mat-menu>
 
-    <button class="header-burger" type="button" [class.active]="isMenuOpen" (click)="toggleMenu()"
-            aria-label="Меню" [attr.aria-expanded]="isMenuOpen">
+    <button class="header-burger" type="button" [class.active]="_isMenuOpen" (click)="_toggleMenu()"
+            aria-label="Меню" [attr.aria-expanded]="_isMenuOpen">
       <span></span>
       <span></span>
       <span></span>

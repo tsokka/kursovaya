@@ -9,10 +9,10 @@ import {CategoryType} from "../../../types";
 })
 export class CategoryService {
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
   }
 
-  getCategories(): Observable<CategoryType[]> {
+  public getCategories(): Observable<CategoryType[]> {
     return this.http.get<CategoryType[]>(environment.api + 'categories');
   }
 }

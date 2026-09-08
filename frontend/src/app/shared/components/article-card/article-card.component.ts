@@ -8,6 +8,6 @@ import {environment} from "../../../../environments/environment";
   styleUrls: ['./article-card.component.scss']
 })
 export class ArticleCardComponent {
-  @Input() article!: ArticleType;
-  serverStaticPath = environment.serverStaticPath;
+  @Input() public article!: ArticleType;
+  protected readonly _serverStaticPath: string = environment.serverStaticPath;
 }

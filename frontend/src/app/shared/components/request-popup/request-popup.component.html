@@ -1,23 +1,23 @@
 <div class="popup">
-  <div class="popup-close" (click)="closePopup()">
+  <div class="popup-close" (click)="_closePopup()">
     <img src="/assets/images/icons/close.svg" alt="Закрыть">
   </div>
 
-  <div class="popup-content" [class.popup-order]="data.type === 'order'" *ngIf="!isSuccess">
+  <div class="popup-content" [class.popup-order]="data.type === 'order'" *ngIf="!_isSuccess">
     <div class="popup-title">
       {{ data.type === 'order' ? 'Заявка на услугу' : 'Закажите бесплатную консультацию!' }}
     </div>
-    <form [formGroup]="requestForm" class="popup-fields">
+    <form [formGroup]="_requestForm" class="popup-fields">
       <div class="popup-field popup-select-field" *ngIf="data.type === 'order'">
-        <div class="input popup-select" [class.popup-select-open]="serviceOpen" (click)="toggleServices()">
-          <span>{{ requestForm.value.service }}</span>
+        <div class="input popup-select" [class.popup-select-open]="_serviceOpen" (click)="_toggleServices()">
+          <span>{{ _requestForm.value.service }}</span>
           <img src="/assets/images/icons/chevron-down-blue.svg" alt="">
         </div>
-        <div class="popup-select-list" *ngIf="serviceOpen">
+        <div class="popup-select-list" *ngIf="_serviceOpen">
           <div class="popup-select-item"
-               *ngFor="let option of serviceOptions"
-               [class.active]="requestForm.value.service === option"
-               (click)="selectService(option)">{{ option }}
+               *ngFor="let option of _serviceOptions"
+               [class.active]="_requestForm.value.service === option"
+               (click)="_selectService(option)">{{ option }}
           </div>
         </div>
       </div>
@@ -27,24 +27,24 @@
       <div class="popup-field">
         <input type="text" class="input" formControlName="phone" placeholder="Ваш номер телефона"
                mask="(000) 000-00-00" prefix="+7 " [validation]="true">
-        <div class="error" *ngIf="requestForm.get('phone')?.invalid && requestForm.get('phone')?.touched">
+        <div class="error" *ngIf="_requestForm.get('phone')?.invalid && _requestForm.get('phone')?.touched">
           Введите номер полностью
         </div>
       </div>
       <button type="button" class="button popup-button"
-              [disabled]="!requestForm.valid"
-              (click)="createRequest()">
+              [disabled]="!_requestForm.valid"
+              (click)="_createRequest()">
         {{ data.type === 'order' ? 'Оставить заявку' : 'Заказать консультацию' }}
       </button>
-      <div class="popup-error error" *ngIf="hasError">
+      <div class="popup-error error" *ngIf="_hasError">
         Ошибка при отправке формы. Попробуйте еще раз
       </div>
     </form>
   </div>
 
-  <div class="popup-content popup-success" *ngIf="isSuccess">
+  <div class="popup-content popup-success" *ngIf="_isSuccess">
     <div class="popup-title">Спасибо за вашу заявку!</div>
     <div class="popup-success-text">Мы свяжемся с вами при первой же возможности.</div>
-    <button type="button" class="button popup-success-button" (click)="closePopup()">Окей</button>
+    <button type="button" class="button popup-success-button" (click)="_closePopup()">Окей</button>
   </div>
 </div>

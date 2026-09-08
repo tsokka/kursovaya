@@ -13,12 +13,12 @@ import {TypeGuardUtil} from "../../../shared";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  protected readonly loginForm = this.fb.group({
+  protected readonly _loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
     rememberMe: [false]
   });
-  protected showPassword: boolean = false;
+  protected _showPassword: boolean = false;
 
   constructor(private readonly fb: FormBuilder,
               private readonly authService: AuthService,
@@ -26,13 +26,9 @@ export class LoginComponent {
               private readonly router: Router) {
   }
 
-  private _isDefaultResponse(data: unknown): data is DefaultResponseType {
-    return typeof data === 'object' && data !== null && 'error' in data;
-  }
-
-  login(): void {
-    if (this.loginForm.valid && this.loginForm.value.email && this.loginForm.value.password) {
-      this.authService.login(this.loginForm.value.email, this.loginForm.value.password, !!this.loginForm.value.rememberMe)
+  protected _login(): void {
+    if (this._loginForm.valid && this._loginForm.value.email && this._loginForm.value.password) {
+      this.authService.login(this._loginForm.value.email, this._loginForm.value.password, !!this._loginForm.value.rememberMe)
         .subscribe({
           next: (data: DefaultResponseType | LoginResponseType) => {
             if (TypeGuardUtil.isDefaultResponse(data)) {
@@ -54,5 +50,6 @@ export class LoginComponent {
           }
         });
     }
+    this._loginForm
   }
 }

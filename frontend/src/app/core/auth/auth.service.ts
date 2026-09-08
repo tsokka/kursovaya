@@ -8,16 +8,16 @@ import {LoginResponseType, RefreshResponseType, TokensType, DefaultResponseType}
   providedIn: 'root'
 })
 export class AuthService {
-  public accessTokenKey: string = 'accessToken';
-  public refreshTokenKey: string = 'refreshToken';
-  public userIdKey: string = 'userId';
-  public userNameKey: string = 'userName';
+  private readonly _accessTokenKey: string = 'accessToken';
+  private readonly _refreshTokenKey: string = 'refreshToken';
+  private readonly _userIdKey: string = 'userId';
+  private readonly _userNameKey: string = 'userName';
+  private _isLogged: boolean = false;
 
   public isLogged$: Subject<boolean> = new Subject<boolean>();
-  private isLogged: boolean = false;
 
   constructor(private readonly http: HttpClient) {
-    this.isLogged = !!localStorage.getItem(this.accessTokenKey);
+    this._isLogged = !!localStorage.getItem(this._accessTokenKey);
   }
 
   public login(email: string, password: string, rememberMe: boolean): Observable<DefaultResponseType | LoginResponseType> {
@@ -26,13 +26,13 @@ export class AuthService {
     });
   }
 
-  signup(name: string, email: string, password: string): Observable<DefaultResponseType | LoginResponseType> {
+  public signup(name: string, email: string, password: string): Observable<DefaultResponseType | LoginResponseType> {
     return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'signup', {
       name, email, password
     });
   }
 
-  logout(): Observable<DefaultResponseType> {
+  public logout(): Observable<DefaultResponseType> {
     const tokens = this.getTokens();
     if (tokens && tokens.refreshToken) {
       return this.http.post<DefaultResponseType>(environment.api + 'logout', {
@@ -42,7 +42,7 @@ export class AuthService {
     throw throwError(() => 'Can not find token');
   }
 
-  refresh(): Observable<DefaultResponseType | RefreshResponseType> {
+  public refresh(): Observable<DefaultResponseType | RefreshResponseType> {
     const tokens = this.getTokens();
     if (tokens && tokens.refreshToken) {
       return this.http.post<DefaultResponseType | RefreshResponseType>(environment.api + 'refresh', {
@@ -53,47 +53,43 @@ export class AuthService {
   }
 
   public getIsLoggedIn(): boolean {
-    return this.isLogged;
+    return this._isLogged;
   }
 
   public setTokens(accessToken: string, refreshToken: string): void {
-    localStorage.setItem(this.accessTokenKey, accessToken);
-    localStorage.setItem(this.refreshTokenKey, refreshToken);
-    this.isLogged = true;
+    localStorage.setItem(this._accessTokenKey, accessToken);
+    localStorage.setItem(this._refreshTokenKey, refreshToken);
+    this._isLogged = true;
     this.isLogged$.next(true);
   }
 
   public removeTokens(): void {
-    localStorage.removeItem(this.accessTokenKey);
-    localStorage.removeItem(this.refreshTokenKey);
-    this.isLogged = false;
+    localStorage.removeItem(this._accessTokenKey);
+    localStorage.removeItem(this._refreshTokenKey);
+    this._isLogged = false;
     this.isLogged$.next(false);
   }
 
   public getTokens(): TokensType {
     return {
-      accessToken: localStorage.getItem(this.accessTokenKey),
-      refreshToken: localStorage.getItem(this.refreshTokenKey)
+      accessToken: localStorage.getItem(this._accessTokenKey),
+      refreshToken: localStorage.getItem(this._refreshTokenKey)
     };
   }
 
-  get userId(): null | string {
-    return localStorage.getItem(this.userIdKey);
+  public get userId(): string | null {
+    return localStorage.getItem(this._userIdKey);
   }
 
-  set userId(id: string | null) {
-    if (id) {
-      localStorage.setItem(this.userIdKey, id);
-    } else {
-      localStorage.removeItem(this.userIdKey);
-    }
+  public set userId(id: string | null) {
+    id ? localStorage.setItem(this._userIdKey, id) : localStorage.removeItem(this._userIdKey);
   }
 
-  get userName(): null | string {
-    return localStorage.getItem(this.userNameKey);
+  public get userName(): string | null {
+    return localStorage.getItem(this._userNameKey);
   }
 
-  set userName(name: string | null) {
-    name ? localStorage.setItem(this.userNameKey, name) : localStorage.removeItem(this.userNameKey);
+  public set userName(name: string | null) {
+    name ? localStorage.setItem(this._userNameKey, name) : localStorage.removeItem(this._userNameKey);
   }
 }
