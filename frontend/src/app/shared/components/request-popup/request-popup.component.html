@@ -8,7 +8,8 @@
       {{ data.type === 'order' ? 'Заявка на услугу' : 'Закажите бесплатную консультацию!' }}
     </div>
     <form [formGroup]="_requestForm" class="popup-fields">
-      <div class="popup-field popup-select-field" *ngIf="data.type === 'order'">
+      <div class="popup-field popup-select-field" *ngIf="data.type === 'order'"
+           appClickOutside (appClickOutside)="_closeServices()">
         <div class="input popup-select" [class.popup-select-open]="_serviceOpen" (click)="_toggleServices()">
           <span>{{ _requestForm.value.service }}</span>
           <img src="/assets/images/icons/chevron-down-blue.svg" alt="">

@@ -1,4 +1,4 @@
-import {Component, OnInit, HostListener, ElementRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../core";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -19,8 +19,7 @@ export class HeaderComponent implements OnInit {
   constructor(private readonly authService: AuthService,
               private readonly userService: UserService,
               private readonly _snackBar: MatSnackBar,
-              private readonly router: Router,
-              private readonly elementRef: ElementRef) {
+              private readonly router: Router) {
     this._isLogged = this.authService.getIsLoggedIn();
   }
 
@@ -32,16 +31,6 @@ export class HeaderComponent implements OnInit {
 
     if (this._isLogged) {
       this._loadUserName();
-    }
-  }
-
-  @HostListener('document:click', ['$event'])
-  public onDocumentClick(event: MouseEvent): void {
-    if (!this._isMenuOpen) {
-      return;
-    }
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      this._isMenuOpen = false;
     }
   }
 

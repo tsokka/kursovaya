@@ -1,4 +1,4 @@
-<div class="filter" [class.filter-open]="_open">
+<div class="filter" [class.filter-open]="_open" appClickOutside (appClickOutside)="_close()">
   <div class="filter-head" (click)="_toggle()">
     <span>Фильтр</span>
     <img src="/assets/images/icons/chevron-down.svg" alt="">

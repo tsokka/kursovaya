@@ -16,7 +16,7 @@ import localeRu from '@angular/common/locales/ru';
 import {NgxMaskModule} from "ngx-mask";
 import {AppComponent} from './app.component';
 import {LayoutComponent, HeaderComponent, FooterComponent} from './shared';
-import {ArticleCardComponent, CategoryFilterComponent, RequestPopupComponent} from './shared';
+import {ArticleCardComponent, CategoryFilterComponent, RequestPopupComponent, ClickOutsideDirective} from './shared';
 import {
   MainComponent,
   BlogComponent,
@@ -43,7 +43,8 @@ registerLocaleData(localeRu);
     ArticleCardComponent,
     BlogComponent,
     CategoryFilterComponent,
-    ArticleComponent
+    ArticleComponent,
+    ClickOutsideDirective
   ],
   imports: [
     BrowserModule,

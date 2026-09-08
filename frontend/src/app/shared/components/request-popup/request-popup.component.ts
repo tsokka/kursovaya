@@ -66,4 +66,8 @@ export class RequestPopupComponent {
     this._requestForm.get('service')?.setValue(service);
     this._serviceOpen = false;
   }
+
+  protected _closeServices(): void {
+    this._serviceOpen = false;
+  }
 }

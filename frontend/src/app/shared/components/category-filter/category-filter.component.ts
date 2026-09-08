@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CategoryService} from "../../services";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ActiveParamsUtil} from "../../utils";
@@ -16,8 +16,7 @@ export class CategoryFilterComponent implements OnInit {
 
   constructor(private readonly categoryService: CategoryService,
               private readonly activatedRoute: ActivatedRoute,
-              private readonly router: Router,
-              private readonly elementRef: ElementRef) {
+              private readonly router: Router) {
   }
 
   public ngOnInit(): void {
@@ -31,11 +30,8 @@ export class CategoryFilterComponent implements OnInit {
     });
   }
 
-  @HostListener('document:click', ['$event'])
-  public onOutsideClick(event: MouseEvent): void {
-    if (this._open && !this.elementRef.nativeElement.contains(event.target)) {
-      this._open = false;
-    }
+  protected _close(): void {
+    this._open = false;
   }
 
   protected _toggle(): void {
